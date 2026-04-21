@@ -1,0 +1,223 @@
+@media (max-width: 800px) {
+  .CCgrande{       
+      height: 100%!important;
+      width: 100% !important;
+      margin-top: 0% !important;
+      margin-bottom: 0% !important;
+      margin-left: 0% !important;
+      margin-right: 0% !important;
+      border: #1f3159 !important;
+  }
+  .CrearCuenta{
+    background-color: #1f3159 !important;
+  }
+  .CCmediano2{
+    display:inline-block !important;
+  }
+}
+
+.select-ciudad {
+  width: 100%;
+  height: 12%;
+  padding: 12px;
+  margin-top: 25px;
+  border: 1px solid #43423F;
+  border-radius: 4px;
+  font-size: 15px;
+  color:#888;
+  background-color:#43423F;
+  transition: border-color 0.3s ease;
+}
+.select-ciudad1 {
+  width: 100%;
+  height: 17%;
+  padding: 12px;
+  margin-top: 25px;
+  border: 1px solid #43423F;
+  border-radius: 4px;
+  font-size: 15px;
+  color:#888;
+  background-color:#43423F;
+  transition: border-color 0.3s ease;
+}
+
+.CrearCuenta{
+    height: 100%;
+    width: 100%;
+    background-image: white;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .CCgrande{
+    border: 2px solid #43423F;
+    border-radius: 25px;
+    height: 90%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: #1f3159;
+  }
+  .CCmediano1{
+    width: 100%;
+    height: 30%;
+  }
+  .tituloCC{
+    font-size: 600%;
+    color: white;
+    text-align: center;
+    padding-top: 2%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    text-decoration: underline;
+  }
+  .CCsubtitulo{
+    text-align: center;
+    color: white;
+  }
+  .CCmediano2{
+    width: 100%;
+    height: 55%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .CCcolumna1{
+    border-right: 2px dotted #43423F;
+  }
+  .CCform1{  
+    height: 100%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+  .CCform1 input {
+    margin-top: 15%;
+    width: 100%;
+    padding: 3%;
+    box-sizing: border-box;
+    border: 2px solid #43423F;
+    background-color: #43423F; 
+    border-radius: 5px;
+    color: white;
+  }
+  .CCform2{
+    height: 100%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+  }  
+  .CCform2 input {
+    margin-top: 15%;
+    width: 100%;
+    padding: 3%;
+    box-sizing: border-box;
+    border: 2px solid #43423F;
+    background-color: #43423F; 
+    border-radius: 5px; 
+    color: white;
+  }
+  .CCmediano3{
+    width: 100%;
+    height: 15%;
+  }
+  .CCmediano3 input[type="submit"] { 
+    margin-top: 3%;
+    border-radius: 5px; 
+    border: 2px solid #43423F;
+    background-color: #43423F; 
+    color: white; 
+    cursor: pointer;
+    width: 20%; 
+    margin-left: 40%;
+    padding: 1%;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .CCform3{  
+    height: 100%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+  .CCform3 input {
+    margin-top: 15%;
+    width: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+    border: 2px solid #43423F;
+    background-color: #43423F; 
+    color: white;
+  }
+  .CCform4{  
+    height: 100%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+  .CCform4 input {
+    margin-top: 15%;
+    width: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+    border: 2px solid #43423F;
+    background-color: #43423F; 
+    border-radius: 5px; 
+    color: white;
+  }
+  .CCform4 label {
+    display: inline-block; 
+    margin-right: 15px; 
+    color: white; 
+  
+  }
+  .CCform4 #DIRECCIONUNI {
+    margin-bottom: 15%; 
+  }
+  .CCform4 legend {
+    color: white;
+  }  
+  .modal {
+    display: none;
+    /* para que este oculto */
+    position: fixed;
+    /* para que se quede quieto al escrolear */
+    z-index: 1;
+    /* esta por encima de lo otro */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent
+}
+.modal-contentERROR {
+    background-color: #D15B5B;
+    margin-left: 28%;
+    margin-top: 15%;
+    padding: 2%;
+    border: 1px solid #888;
+    width: 40%;
+    text-align: center;
+    border-radius: 25px;
+    height: 20%;
+}
+.modalleter {
+    color: #ccc;
+}
+.situacionalu {
+  width: 65%;
+  height: 15%;
+  margin-top: 3%;
+  border-radius: 5px; 
+  border: 2px solid #43423F;
+  background-color: #43423F; 
+  color: white; 
+  cursor: pointer;
+  margin-left: 16%;
+  margin-right: 15%;
+  padding: 1%;
+}

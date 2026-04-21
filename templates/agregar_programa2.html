@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_prueba.css')}}" />
+    <script type="text/javascript" src="../static/Java_editar_perfil"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar">
+            <div class="caja_menubar">
+                <a href='/perfil2'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfil2" class="menutexto">Perfil</a><br>
+                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
+                        alt="home"></a><br>
+                <a href="/" class="menutexto">Home</a><br>
+                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
+                        class="menufotos" alt="home"></a><br>
+                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+            </div>
+        </div>
+
+        <div class="contenedor">
+            <div class="margen">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
+                            onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content2">
+                <h1>Crear un programa</h1>
+                <div class="per">
+                    <form action="/nuevo_programa" method="post" onsubmit="return totalcrearprograma()">
+                        <div class="per3">
+                            <div class="columna1dP2">
+                                <input type="text" id="nombrepro"  name="nombrepro" placeholder="Nombre del programa"
+                                    onblur="validateNom(this.id)">
+                                <input type="text" id="duracionpro" name="precio" placeholder="Precio"
+                                    onblur="validateNombre(this.id)">
+                                <input type="text" id="fechapro" name='modalidad' placeholder="Modalidad"
+                                    onblur="validateNombre(this.id)">
+                            </div>
+                            <div class="columna2dP2">
+                                <h2 class="requisitos" >Requisitos</h2>
+                                <input type="text" id="visapro" name="requisitos" placeholder="Promedio, visado, idioma, etc..."
+                                    onblur="validateNombre(this.id)">
+                            </div>
+                        </div>
+                        <div class="per5">
+                            <h2>Descripcion del programa</h2>
+                            <div class="per6">
+                                <input type="text" id="descripcionpro" name="descripcion"
+                                    placeholder="Escriba aqui la descripcion del programa"
+                                    onblur="validateNombre(this.id)">
+                            </div>
+                        </div>
+                        <div class="per7">
+                            <div class="boton">
+                                <input class="boton_perfil" type="submit" name="search_field" value="Guadar" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
+                    <div class="modal-contentERROR">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2 class="modalleter">ERROR</h2>
+                        <div>
+                            <p id="error-message">Completa los campos de manera completa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

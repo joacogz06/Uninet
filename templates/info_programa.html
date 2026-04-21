@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
+    <script type="text/javascript" src="/static/Java01"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar">
+            <div class="caja_menubar">
+                <a href='/perfilalu'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfilalu" class="menutexto">Perfil</a><br>
+                <a href="/homealu"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos" alt="home"></a><br>
+                <a href="/homealu" class="menutexto">Home</a><br>
+                <a href="/enviadas"><img src="../static/mailTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/enviadas" class="menutexto">Enviadas</a><br>
+                <a href="/respuestasalu"><img src="../static/sendTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/respuestasalu" class="menutexto">Respuestas</a>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="margen">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
+                            onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content">
+                <div id="programa_content">
+                    <div id="content">
+                        <h1>{{programa[1]}} - {{programa[2]}}</h1>
+            
+                        <ul class="lista_programa">
+                            <li>modalidad: {{programa[5]}}</li>
+                            <li>precio: {{programa[3]}} $</li>
+                        </ul>
+            
+                        <p>{{programa[6]}}</p>
+                        <div class="plan-estudios">
+                            <div class="materia">
+                                <h4>Requisitos</h4>
+                                <ul>
+                                    {{programa[4]}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="solicitud_">
+                            <form action="/solicitud_programa" method="post" onsubmit="aplicar()">
+                                <input type="hidden" value="{{programa[0]}}" name="idprograma">
+                                <input class="solicitud" type="submit" id="Aplicar" name="search_field" value="Aplicar" />
+                            </form>
+                            <a href="/homealu"><input class="solicitud" type="button" name="search_field" value="Volver" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
+            <div class="modal-contentAPL">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 class="modalleter">Solicitud enviada</h2>
+                <div>
+                    <h4 class="modalleter">Recivira una respuesta en un plazo de 15 dias.</h4>
+                    <img src="../static/mailTransparente.png" class="fotoModalAPL">
+                </div> 
+            </div>
+        </div>
+</body>
+
+</html>

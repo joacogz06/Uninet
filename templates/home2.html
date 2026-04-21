@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_prueba.css')}}"/>
+    <script type="text/javascript" src="../static/Java01"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar">
+            <div class="caja_menubar">
+                <a href='/perfil2'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfil2" class="menutexto">Perfil</a><br>
+                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
+                        alt="home"></a><br>
+                <a href="/" class="menutexto">Home</a><br>
+                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
+                        class="menufotos" alt="home"></a><br>
+                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+            </div>
+        </div>
+
+        <div class="contenedor">
+            <div class="margen_home">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home" onclick="ApareceMenu()"></a><br>
+                </div>
+                <div class="cont_boton">
+                    <a href="/pagina_agregarprograma"><input class="boton_programa" type="button" name="search_field"
+                            value="Agregar programa" /></a>
+                </div>
+            </div>
+            <div id="site_content_home2">
+                <h1>Programas disponibles </h1>
+                {% for programa in programas %}
+                    <div class="programa">
+                        <h1>{{programa[1]}}</h1> 
+                        <h3 class="Sub_programas">{{session.get('ciudad')}}</h3>
+                        <h3 class="Sub_programas">{{programa[3]}}</h3>
+                        <p class="descripcion">{{programa[7]}}</p>
+                        <select class="solicitud_programa" id="cambiar_estado" onchange="programa_nodispo(this, {{programa[0]}})" name="estado" title="Cambiar de estado">
+                            <option value="0" disabled selected> {{programa[6]}}</option>
+                            <option value="3400">No disponible</option>
+                            <option value="3401">Disponible</option>
+                        </select>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

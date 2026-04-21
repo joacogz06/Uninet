@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Uninet</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="website description" />
+        <meta name="keywords" content="website keywords, website keywords" />
+        <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+        <script type="text/javascript" src="../static/Java01"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_ini.css')}}"/> <!-- esto es jinja -->
+        <!-- <script type="text/javascript" src="../static/Java01"></script> -->
+    </head>
+
+    <body class="InicioSecion">
+        <div class="ICgrande">
+            <div class="ICchico1">
+                <div class="ICchico1-1">
+                    <h1 class="tituloIC">
+                        Uninet
+                    </h1>
+                </div>
+                <form id="form_inicio" class="formIC" method="post" action="/signin">
+                    <div class="ICchico1-2">
+                        <h3 class="h4dIC1">Soy:</h3>
+                        <select name="alu/uni" id="alu_uni">
+                            <option>Alumno</option>
+                            <option>Universidad</option>
+                        </select>
+                        <input id="ICusername" type="text" name="user_mail" placeholder="Enter your email..." onblur="validateNombre(id)">
+                        <input id="ICpassword" type="password" name="password" placeholder="Enter your password..." onblur="validateNombre(id)">
+                    </div>
+                    <div class="ICchico1-3">
+                        <input type="submit" value="enviar">
+                    </div>
+                </form>
+            </div>
+            <div class="ICchico2">
+                <h4 class="h4dIC">
+                    No tienes una cuenta?
+                </h4>
+                <h4 class="h4dIC1">Si eres estudiante registrate <a href="/paginacrearcuentaalumno">AQUI</a></h4>
+                <h4 class="h4dIC1">Si eres un perfil universitario registrate <a href="/paginacrearuniversidad">AQUI</a></h4>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-contentERROR">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 class="modalleter">¡ERROR!</h2>
+                <div id="error-message-container">
+                    <p id="error-message">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

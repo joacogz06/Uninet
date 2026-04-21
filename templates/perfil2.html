@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_prueba.css')}}"/>-->
+    <link rel="stylesheet" href="../static/style_prueba.css">
+    <script type="text/javascript" src="../static/Java01"></script>
+</head>
+
+<body>
+    
+    <div class="main">
+        <div id="menubar">
+            <div class="caja_menubar">
+                <a href='/perfil2'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfil2" class="menutexto">Perfil</a><br>
+                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
+                        alt="home"></a><br>
+                <a href="/" class="menutexto">Home</a><br>
+                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
+                        class="menufotos" alt="home"></a><br>
+                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="margen">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home" onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content2">
+                <h1>Este es tu perfil con tu informacion personal:</h1>
+                <div class="programa_res">
+                    <div class="perfil_inicial">
+                        <img src="{{ url_for('static', filename='perfilTransparente.png')}}" alt="perfil" class="perfil_img"><br>
+                        <a class="perfil_texto">Foto de Perfil</a>
+                    </div>
+                    <div class="per">
+                        <div class="per2">
+                            <div class="columna1dP2">
+                                <h3>Nombre de la Universidad: {{session.get('nombre')}}</h3>
+                                <h3>Ubicacion:  {{session.get('ciudad')}}</h3>
+                            </div>
+                            <div class="columna2dP2">
+                                <h3>Telefono de contacto:  {{session.get('telefono')}}</h3>
+                                <h3>Correo electronico de contacto:  {{session.get('email')}}</h3>
+                                <h3>Pagina web digital:  {{session.get('link')}}</h3>
+                            </div>
+                        </div>
+                        <div class="boton">
+                            <a href="/editar_perfil_uni"><input class="boton_perfil" type="button" name="search_field" value="Editar" /></a>
+                        </div>
+                        <div class="boton">
+                            <a href="/cerrarSession">
+                                <input class="boton_perfil" type="button" name="search_field" value="Cerrar Sesion" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

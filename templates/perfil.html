@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
+    <script type="text/javascript" src="../static/Java01"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar">
+            <div class="caja_menubar">
+                <a href='/perfilalu'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfilalu" class="menutexto">Perfil</a><br>
+                <a href="/homealu"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos" alt="home"></a><br>
+                <a href="/homealu" class="menutexto">Home</a><br>
+                <a href="/enviadas"><img src="../static/mailTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/enviadas" class="menutexto">Enviadas</a><br>
+                <a href="/respuestasalu"><img src="../static/sendTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/respuestasalu" class="menutexto">Respuestas</a>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="margen">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
+                            onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content">
+                <div class="programa">
+                    <h1>Este es tu perfil con tu informacion personal:</h1>
+                    <div class="perfil_inicial">
+                        <img src="../static/perfilTransparente.png" alt="perfil" class="perfil_img"><br>
+                        <a class="perfil_texto">Foto de Perfil</a>
+                    </div>
+                    <div class="per">
+                        <div class="form-container">
+                            <div class="column">
+                                <h3>Nombre: {{session.get("nombre")}}</h3>
+                                <h3>Apellido: {{session.get("apellido")}}</h3>
+                                <h3>Carrera universitaria: {{session.get("id_carrera")}}</h3>
+                                <h3>Correo electronico: {{session.get("email")}}</h3>
+                            </div>
+                            <div class="column">
+                                <h3>Contrasena: {{session.get("password")}}</h3>
+                                <h3>Ciudad: {{session.get("id_ciudad")}}</h3>
+                                <h3>Telefono: {{session.get("telefono")}}</h3>
+                                <h3>DNI: {{session.get("dni")}}</h3>
+                                <h3>Promedio: {{session.get("promedio")}}</h3>
+                                <h3>Presentacion: {{session.get('situacion')}}</h3>
+                            </div>
+                        </div>
+                        <div class="boton">
+                            <a href="/perfileditaralu">
+                                <input class="boton_perfil" type="button" name="search_field" value="Editar" />
+                            </a>
+                        </div>
+                        <div class="boton">
+                            <a href="/cerrarSession">
+                                <input class="boton_perfil" type="button" name="search_field" value="Cerrar Sesion" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

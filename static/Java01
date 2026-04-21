@@ -1,0 +1,468 @@
+const COLOR_FONDO_ERROR = '#8A1B1B';
+const COLOR_FONDO_NORMAL = '#43423F';
+const COLOR_FONDO_NORMAL1 = '#ffffff';
+function ApareceMenu() {
+    var menu = document.getElementById('menubar');
+  if (menu.style.display === 'none') {
+    menu.style.display = 'block';
+  } else {
+    menu.style.display = 'none';
+  }
+}
+
+function validateNom(id) {
+    var nombre = document.getElementById(id).value;
+    var regex = /\d/; 
+
+    if (nombre === "" || regex.test(nombre)) { 
+        errorColorFondo(id);
+        return false;
+    } else {
+        normalColorFondo(id);
+        return true;
+    }
+}
+function validateNombre(id) {
+    var nombre = document.getElementById(id).value;
+
+    if (nombre === "") {
+        errorColorFondo(id);
+        return false;
+    } else {
+        normalColorFondo(id);
+        return true;
+    }
+}
+function validateURL() {
+    var url = document.getElementById("PWEB").value;
+    var mensaje = document.getElementById("pweberror");
+    var regexURL = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+
+    if (url === "") {
+        mensaje.innerHTML = "";
+        errorColorFondo("PWEB");
+        return false;
+    } else if (!regexURL.test(url)) {
+        mensaje.innerHTML = "El URL no es valida.";
+        errorColorFondo("PWEB");
+        return false;
+    } else {
+        mensaje.innerHTML = "";
+        normalColorFondo("PWEB");
+        return true;
+    }
+}
+
+function validatepass(){
+    var pass = document.getElementById("PASSWORD").value;
+    var mensaje = document.getElementById("passerror")
+
+    if (pass === "") {
+        errorColorFondo("PASSWORD")
+        mensaje.innerHTML=""
+        return false
+    }
+    else if (pass.length < 10){
+        mensaje.innerHTML="La contrasena debe tener al menos 10 caracteres y 3 numeros"
+        errorColorFondo("PASSWORD")
+        return false
+    }
+    else if (!num_enteros("PASSWORD")){ 
+        mensaje.innerHTML="La contrasena debe tener al menos 3 numeros"
+        errorColorFondo("PASSWORD");
+        return false
+    }
+    else {
+        mensaje.innerHTML=""
+        normalColorFondo("PASSWORD")
+        return true;
+    }
+}
+
+function validatepassuni(){
+    var pass = document.getElementById("PASSUNI").value;
+    var mensaje = document.getElementById("passerroruni")
+
+    if (pass === "") {
+        errorColorFondo("PASSUNI")
+        mensaje.innerHTML=""
+        return false
+    }
+    else if (pass.length < 10){
+        mensaje.innerHTML="La contrasena debe tener al menos 10 caracteres y 3 numeros"
+        errorColorFondo("PASSUNI")
+        return false
+    }
+    else if (!num_enteros("PASSUNI")){ 
+        mensaje.innerHTML="La contrasena debe tener al menos 3 numeros"
+        errorColorFondo("PASSUNI");
+        return false
+    }
+    else {
+        mensaje.innerHTML=""
+        normalColorFondo("PASSUNI")
+        return true;
+    }
+}
+
+function validategmail(){
+    var email = document.getElementById("CORREO").value;
+    var mensaje = document.getElementById("correoerror");
+    var regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (email === "") {
+        mensaje.innerHTML = "";
+        errorColorFondo("CORREO");
+        return false;
+    } else if (!regexEmail.test(email)) {
+        mensaje.innerHTML = "El correo electronico no es valido.";
+        errorColorFondo("CORREO");
+        return false;
+    } else {
+        mensaje.innerHTML = "";
+        normalColorFondo("CORREO");
+        return true;
+    }
+}
+
+function validategmailuni(){
+    var email = document.getElementById("CORREOUNI").value;
+    var mensaje = document.getElementById("correoerroruni");
+    var regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (email === "") {
+        mensaje.innerHTML = "";
+        errorColorFondo("CORREOUNI");
+        return false;
+    } else if (!regexEmail.test(email)) {
+        mensaje.innerHTML = "El correo electronico no es valido.";
+        errorColorFondo("CORREOUNI");
+        return false;
+    } else {
+        mensaje.innerHTML = "";
+        normalColorFondo("CORREOUNI");
+        return true;
+    }
+}
+function validateprom(){
+    var prom = document.getElementById("PROMEDIO").value
+    var mensaje = document.getElementById("promedioerror")
+    if (prom === "") {
+        errorColorFondo("PROMEDIO")
+        mensaje.innerHTML=""
+        return false
+    }
+    else if  (Number(prom) < 0 || Number(prom) > 10){ 
+        mensaje.innerHTML="El promedio no es valido"
+        errorColorFondo("PROMEDIO"); 
+        return false
+       }
+    else {
+        mensaje.innerHTML=""
+        normalColorFondo("PROMEDIO")
+        return true;
+    }
+}
+
+function validateprompro(){
+    var prom = document.getElementById("prompro").value
+    if (prom === "") {
+        errorColorFondo("prompro")
+        return false
+    }
+    else if  (Number(prom) < 0 || Number(prom) > 10){ 
+        errorColorFondo("prompro"); 
+        return false
+       }
+    else {
+        normalColorFondo1("prompro")
+        return true;
+    }
+}
+
+function errorColorFondo(miID) {
+    document.getElementById(miID).style.backgroundColor = COLOR_FONDO_ERROR;
+}
+
+function num_enteros(miID) {
+    var n = document.getElementById(miID).value;
+    var numero = n.match(/\d/g);
+    if (numero && numero.length >= 3){
+        return true
+    }
+    else{
+        return false
+    }
+  }
+
+function normalColorFondo(miID) {
+    document.getElementById(miID).style.backgroundColor = COLOR_FONDO_NORMAL;
+}
+function normalColorFondo1(miID) {
+    document.getElementById(miID).style.backgroundColor = COLOR_FONDO_NORMAL1;
+}
+function validatenumdni(){
+    var telefono = document.getElementById("DNI").value;
+    var mensaje = document.getElementById("dnierror");
+    var regexTelefono = /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+
+    if (telefono === "") {
+        mensaje.innerHTML = "";
+        errorColorFondo("DNI");
+        return false;
+    } else if (!regexTelefono.test(telefono)) {
+        mensaje.innerHTML = "El DNI no es valido.";
+        errorColorFondo("DNI");
+        return false;
+    } else {
+        mensaje.innerHTML = "";
+        normalColorFondo("DNI");
+        return true;
+    }
+}
+function validalista(id){
+    var lista=document.getElementById(id)
+    var mensaje=lista.nextElementSibling;
+
+    if (lista.value===""){
+        errorColorFondo(id)
+        mensaje.textContent="Debes elegir una opcion"
+        return false
+    }
+    else{
+        normalColorFondo(id)
+        mensaje.textContent=""
+        return true
+    }
+}
+function validatenum() {
+    var telefono = document.getElementById("TELEFONO").value;
+    var mensaje = document.getElementById("teleerror");
+    var regexTelefono = /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+
+    if (telefono === "") {
+        mensaje.innerHTML = "";
+        errorColorFondo("TELEFONO");
+        return false;
+    } else if (!regexTelefono.test(telefono)) {
+        mensaje.innerHTML = "El numero de telefono no es valido.";
+        errorColorFondo("TELEFONO");
+        return false;
+    } else {
+        mensaje.innerHTML = "";
+        normalColorFondo("TELEFONO");
+        return true;
+    }
+}
+
+function totalestudiante() {
+    var isValid = true;
+
+    if (!validateNom("NOMBRE")) isValid = false;
+    if (!validateNom("APELLIDO")) isValid = false;
+    if (!validatepass()) isValid = false;
+    if (!validategmail()) isValid = false;
+    if (!validateprom()) isValid = false;
+    if (!validatenum()) isValid = false;
+    if(!validateNombre("SITUACION")) isValid=false;
+    
+    if (!validateNom("FACU")) isValid = false;
+    
+    if (!validatenumdni()) isValid = false;
+    if (!validalista("CARRERA")) isValid = false;
+    if (!validalista("PAIS")) isValid = false;
+    if (!isValid) {
+        openModal()
+    }
+
+    return isValid;
+    }
+
+function totaluni() {
+        var isValid = true
+        if (!validateNom("NOMBREUNI")) isValid = false
+        if (!validalista("CIUDAD")) isValid = false
+        if (!validatepassuni()) isValid = false
+        if (!validategmailuni()) isValid = false
+        if (!validatenum()) isValid = false
+        if (!validateURL("PWEB"))
+        
+        if (!isValid) {
+            openModal()
+        }
+    
+        return isValid;
+}
+
+function validateini() {
+        // Valida campos vacíos
+        if (username==="") {
+            openModal();
+            return false; // Cancela el envío del formulario
+        }
+        if (password===""){
+            openModal()
+            return false
+        }
+        else{
+            return true
+        }
+}
+    
+//////////////////////////TRATAMIENTO DE ERRORES //////////////////////////////////////////////////
+
+document.addEventListener("DOMContentLoaded", function() { //listener significa que escuhca lo que pasa en el html, cuando 'escucha' que cambia se activa la function
+    // Verifica si hay un mensaje de error
+    var errorMessage = document.getElementById("error-message").textContent;
+    if (errorMessage.trim() !== "") {
+        openModal();
+    }
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////// ESTO VA A SER AJAX ////////////////////////////////////////////////////////
+function aceptar_al(id) {
+    var nuevoValor = 'aceptado';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/actualizarestado", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    var data = JSON.stringify({ "id": id, "nuevo_valor": nuevoValor });
+    openModal()
+    var botonAceptar=document.getElementById("solicitud.Aceptar")
+    var botonRechazar=document.getElementById("solicitud.Rechazar")
+    botonAceptar.disabled = true;
+    botonRechazar.disabled = true;
+    xhr.send(data);
+    return true;
+}
+
+function rechazar_al(id){
+    var nuevoValor = 'rechazado';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/actualizarestado", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    var data = JSON.stringify({ "id": id, "nuevo_valor": nuevoValor });
+    openModal2()
+    var botonAceptar=document.getElementById("solicitud.Aceptar")
+    var botonRechazar=document.getElementById("solicitud.Rechazar")
+    botonAceptar.disabled = true;
+    botonRechazar.disabled = true;
+    xhr.send(data);
+    return true;
+}
+
+function info_alumno(id_alumno){
+    var xhr = new XMLHttpRequest(); //es el objeto nativo en JavaScript que permite implementar AJAX. Con él, se pueden realizar solicitudes al servidor y manejar las respuestas de manera asíncrona o síncrona.
+    xhr.open("POST", "/info_alumno", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); //vamos a hablar en formato json
+    var data = JSON.stringify({ "id": id_alumno});
+    xhr.onload = function() { //cuando se ejecuta la funcion de la ruta info alumnno de manera existosa
+        var response = JSON.parse(xhr.responseText); //extraer la respuesta que manda la ruta
+            // Llamar a la función para abrir el modal con los datos de respuesta
+        openModal1(response);
+        }
+    xhr.send(data);
+    return true;
+}
+
+function programa_nodispo(selectElement, id){
+    var value = selectElement.value;
+    if (parseInt(value) == 3400){
+        var nuevoValor = 'no disponible';
+        var xhr = new XMLHttpRequest(); 
+        // Aquí es donde se crea una nueva instancia del objeto XMLHttpRequest.
+        // El objeto XMLHttpRequest es una herramienta en JavaScript que permite a los desarrolladores interactuar con servidores web. Puede enviar y recibir datos de un servidor web.
+        xhr.open("POST", "/actualizarestado_programa", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        // inidca que vas a mandar en formato json
+        var data = JSON.stringify({ "id": id, "nuevo_valor": nuevoValor });
+        // Este es un método de JavaScript que convierte un objeto o valor de JavaScript en una cadena JSON (JavaScript Object Notation). 
+        // JSON es un formato de texto ligero para el intercambio de datos.
+        xhr.send(data);
+        return true;
+    }
+    if (parseInt(value)==3401){
+        var nuevoValor = 'disponible';
+        var xhr = new XMLHttpRequest(); 
+        // Aquí es donde se crea una nueva instancia del objeto XMLHttpRequest.
+        // El objeto XMLHttpRequest es una herramienta en JavaScript que permite a los desarrolladores interactuar con servidores web. Puede enviar y recibir datos de un servidor web.
+        xhr.open("POST", "/actualizarestado_programa", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        // inidca que vas a mandar en formato json
+        var data = JSON.stringify({ "id": id, "nuevo_valor": nuevoValor });
+        // Este es un método de JavaScript que convierte un objeto o valor de JavaScript en una cadena JSON (JavaScript Object Notation). 
+        // JSON es un formato de texto ligero para el intercambio de datos.
+        xhr.send(data);
+        return true;
+    }
+}
+
+function eliminarPrograma_basura(btn, id) {
+    var programaDiv = btn.closest(".programa");
+    programaDiv.parentNode.removeChild(programaDiv);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/borrar_solicitud", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    console.log('llego al java')
+
+    var data = JSON.stringify({ "id": id});
+    xhr.send(data);
+    return true;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function eliminarPrograma(btn) {
+    var programaDiv = btn.parentNode.parentNode;
+    programaDiv.parentNode.removeChild(programaDiv);
+}
+
+function aplicar(){
+    var aplicar = document.getElementById("Aplicar")
+    openModal()
+    if (aplicar){
+        aplicar.remove()
+    }
+} 
+function openModal() { 
+    document.getElementById('myModal').style.display = 'block';//deje de ser none y ocupe todo el tamanio dispo   
+}
+
+function openModal1(response) {
+    var modal = document.getElementById("myModal1");
+
+    var modalContent = document.getElementById("modal_alumnos"); //modal_alumnos es el id de el <p> donde vamos a poner la info, osea el p q vamos a modificar
+    response=response[0]
+    modalContent.innerHTML = //nos estamos metiendo adentro del html y modifiando el contenido dentro
+        ` 
+        Alumno: ${response[1]} ${response[2]}<br>
+        Teléfono: ${response[6]}<br>
+        Gmail: ${response[3]}<br>
+        DNI: ${response[5]}<br>
+        Promedio: ${response[7]}<br>
+        Carrera:  ${response[11]}<br>
+        Ciudad:  ${response[12]}<br>
+        Descripcion: ${response[10]}<br>
+    `;
+    //el signo peso $ es para que no lo tome litral 
+    modal.style.display = "block";
+}
+
+function openModal2() { 
+    document.getElementById('myModal2').style.display = 'block';//deje de ser none y ocupe todo el tamanio dispo
+}
+
+function closeModal1() { //vuelve el modal a como estaba
+    document.getElementById('myModal1').style.display = 'none';
+}
+
+function closeModal2() { //vuelve el modal a como estaba
+    document.getElementById('myModal2').style.display = 'none';
+}
+function closeModal() { //vuelve el modal a como estaba
+    document.getElementById('myModal').style.display = 'none';
+}
