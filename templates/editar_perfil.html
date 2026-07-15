@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
+    <script type="text/javascript" src="../static/Java_editar_perfil"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
+            <div class="caja_menubar">
+                <a href='/perfilalu'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfilalu" class="menutexto">Perfil</a><br>
+                <a href="/homealu"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos" alt="home"></a><br>
+                <a href="/homealu" class="menutexto">Home</a><br>
+                <a href="/enviadas"><img src="../static/mailTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/enviadas" class="menutexto">Enviadas</a><br>
+                <a href="/respuestasalu"><img src="../static/sendTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/respuestasalu" class="menutexto">Respuestas</a>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="margen">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
+                            onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content">
+                <div class="programa">
+                    <h1>Este es tu perfil con tu informacion personal:</h1>
+                    <div class="perfil_inicial">
+                        <img src="../static/perfilTransparente.png" alt="perfil" class="perfil_img"><br>
+                        <a class="perfil_texto">Foto de Perfil</a>
+                    </div>
+                    <div class="per">
+                        <form action="/editar_perfil" method="post" onsubmit="return totalperfilvalidado()">
+                            <div class="form-container">
+                                <div class="column">
+                                    <h3>Nombre: <input id="NOMBRE" name="nombrealu" type="text" value="{{session.get("nombre")}}" onblur="validateNom(this.id)"></h3>
+                                    <div class="error_perfil"></div>
+                                    <h3>Appellido: <input id="APELLIDO" name="apellidoalu" type="text" value="{{session.get("apellido")}}" onblur="validateNom(this.id)"></h3>
+                                    <div class="error_perfil"></div>
+                                    <h3>Carrera universitaria:
+                                        <select name="id_carrera" class="ciudad_editar" id="CARRERA">
+                                            {% for carrera in carreras%}
+                                            <option value="{{carrera[0]}}">{{carrera[1]}}</option>
+                                            {%endfor%}
+                                        </select></h3>
+                                    <div class="error_perfil"></div>
+                                    <h3>Correo electronico: <input name="emailalu" id="CORREO" type="text" value="{{session.get("email")}}" onblur="validateMail()"></h3>
+                                    <div class="error_perfil" id="correoerror"></div>
+                                </div>
+                                <div class="column">
+                                    <h3>Constrasena: <input id="PASSWORDalu" name="password" type="text" value="{{session.get("password")}}" onblur="validatepass()"></h3>
+                                    <div class="error_perfil" id="passerror"></div>
+                                    <h3>Ciudad:
+                                        <select id="PAIS" class="ciudad_editar" name="id_ciudad">
+                                            {%for ciudad in ciudades%}
+                                            <option value="{{ciudad[0]}}">{{ciudad[1]}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </h3>
+                                    <div class="error_perfil"></div>
+                                    <h3>Telefono: <input name="telefonoalu" id="TELEFONO" type="text" value="{{session.get("telefono")}}" onblur="validatenum()"></h3>
+                                    <div class="error_perfil" id="teleerror"></div>
+                                    <h3>DNI: <input id="DNI" name="dnialu" type="text" value="{{session.get("dni")}}" onblur="validatenumdni()"></h3>
+                                    <div class="error_perfil" id="dnierror"></div>
+                                    <h3>Promedio: <input name="promedioalu" id="PROMEDIO" type="text" value="{{session.get("promedio")}}" onblur="validateprom()"></h3>
+                                    <div class="error_perfil" id="promedioerror"></div>
+                                </div>
+                            </div>
+                            <div class="boton">
+                                <input class="boton_perfil" type="submit" name="search_field" value="Guardar"/>
+                            </div>
+                        </form>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-contentERROR">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modalleter">¡ERROR!</h2>
+            <div id="error-message-container">
+                <p id="error-message" class="modalleter">{{error}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

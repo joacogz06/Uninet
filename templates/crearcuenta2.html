@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uninet</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <script type="text/javascript" src="../static/Java01"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_crearC.css')}}"/>
+</head>
+<body class="CrearCuenta">
+    <div class="CCgrande">
+        <div class="CCmediano1">
+            <h1 class="tituloCC">Uninet</h1>
+            <h2 class="CCsubtitulo">cuenta de universidad</h2>
+        </div>
+        <form action="/crearUsuario" method="POST" onsubmit="return totaluni()">
+            <div class="CCmediano2">
+                <div class="CCcolumna1">
+                    <div class="CCform3">
+                        <input id="NOMBREUNI" name="nombreuni" type="text" placeholder="Nombre de la universidad" onblur="validateNom(this.id)">
+                        <div class="cuentarror"></div>
+                        <select id="CIUDAD" name="id_ciudad" class="select-ciudad1" onblur="validalista(this.id)">
+                            <option value="" disabled selected>Selecciona una ciudad:</option>
+                            {% for ciudad in ciudades %}
+                                <option value="{{ciudad[0]}}">{{ciudad[1]}}</option>
+                            {% endfor %}
+                        </select>                      
+                        <div class="cuentarror" id="ciudaderror"></div>
+                        <input id="PASSUNI" type="password" name="password" placeholder="Password" onblur="validatepassuni()">
+                        <div id="passerroruni" class="cuentarror"></div>
+                    </div>
+                </div>
+                <div class="CCcolumna2">
+                    <div class="CCform4">
+                        <input id="CORREOUNI" name="mail" type="text" placeholder="Correo electronico de contacto" onblur="validategmailuni()">
+                        <div id="correoerroruni" class="cuentarror"></div>
+                        <input id="TELEFONO" type="text" name="telefono" placeholder="Telefono de contacto" onblur="validatenum()">
+                        <div id="teleerror" class="cuentarror"></div>
+                        <input id="PWEB" type="text" name="link" placeholder="Link de la pagina web" onblur="validateURL(this.id)">
+                        <div class="error_perfil" id="pweberror"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="CCmediano3">
+                <input type="submit" value="Crear cuenta">
+            </div>
+        </form>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-contentERROR">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modalleter">¡ERROR!</h2>
+            <div id="error-message-container">
+                <p id="error-message" class="modalleter">{{error}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

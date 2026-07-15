@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="../static/style_crearC.css" />
+    <script type="text/javascript" src="../static/Java01"></script>
+</head>
+
+<body class="CrearCuenta">
+    <div class="CCgrande">
+        <div class="CCmediano1">
+            <h1 class="tituloCC">Uninet </h1>
+            <h2 class="CCsubtitulo">cuenta estudiantil</h2>
+        </div>
+        <form method="post" action="/crearUsuarioalu" onsubmit="return totalestudiante()">
+            <div class="CCmediano2">
+                <div class="CCcolumna1">
+                    <div class="CCform1">
+                        <input id="NOMBRE" type="text" name="nombrealu" placeholder="Nombre"
+                            onblur="validateNom(this.id)">
+                        <div class="cuentarror"></div>
+                        <input id="APELLIDO" name="apellidoalu" type="text" placeholder="Apellido"
+                            onblur="validateNom(this.id)">
+                        <div class="cuentarror"></div>
+                        <input id="PASSWORD" name="passalu" type="password" placeholder="Password"
+                            onblur="validatepass()">
+                        <div id="passerror" class="cuentarror"></div>
+                        <input id="CORREO" name="emailalu" type="text" placeholder="Correo electronico"
+                            onblur="validategmail()">
+                        <div id="correoerror" class="cuentarror"></div>
+                        <input id="TELEFONO" name="telefonoalu" type="text" placeholder="Numero de telefono"
+                            onblur="validatenum()">
+                        <div id="teleerror" class="cuentarror"></div>
+                    </div>
+                </div>
+                <div class="CCcolumna2">
+                    <div class="CCform2">
+                        <input id="PROMEDIO" type="text" name="promedioalu" placeholder="Promedio"
+                            onblur="validateprom()">
+                        <div id="promedioerror" class="cuentarror"></div>
+                        <input id="DNI" name="dnialu" type="text" placeholder="DNI" onblur="validatenumdni()">
+                        <div id="dnierror" class="cuentarror"></div>
+                        <input id="FACU" name="facualu" type="text" placeholder="Universidad o institucion asistida"
+                            onblur="validateNom(this.id)">
+                        <div class="cuentarror"></div>
+                        <select id="CARRERA" name="carreraalu" class="select-ciudad" onblur="validalista(this.id)">
+                            <option value="" disabled selected>Selecciona una carrera:</option>
+                            {% for carrera in carreras %}
+                            <option value="{{carrera[0]}}">{{carrera[1]}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="cuentarror" id="carreraerror"></div>
+                        <select id="PAIS" name="ciudadalu" class="select-ciudad" onblur="validalista(this.id)">
+                            <option value="" disabled selected>Selecciona una ciudad:</option>
+                            {% for ciudad in ciudades %}
+                            <option value="{{ciudad[0]}}">{{ciudad[1]}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="cuentarror" id="paiserror"></div>
+                    </div>
+                </div>
+            </div>
+            <input id="SITUACION" name="situacionalu" type="text" class="situacionalu" placeholder="Breve presentacion..."
+                            onblur="validateNom(this.id)">
+                <div class="cuentarror"></div>
+            <div class="CCmediano3">
+                <input type="submit" value="Crear cuenta">
+            </div>
+        </form>
+    </div>
+    <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
+        <div class="modal-contentERROR">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modalleter">ERROR</h2>
+            <div>
+                <h4 class="modalleter">Debes completar todos los campos de manera correcta.</h4>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

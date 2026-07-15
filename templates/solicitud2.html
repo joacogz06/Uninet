@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
+    <script type="text/javascript" src="../static/Java01"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
+            <div class="caja_menubar">
+                <a href='/perfil2'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfil2" class="menutexto">Perfil</a><br>
+                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
+                        alt="home"></a><br>
+                <a href="/" class="menutexto">Home</a><br>
+                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
+                        class="menufotos" alt="home"></a><br>
+                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="margen {{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
+                            onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content2">
+                <div id="buscador_respuestas">
+                    <h1>Aca se encuentran las solicitudes de estudiantes:</h1>
+                </div>
+                {% if solicitudes %}
+                    {% for solicitud in solicitudes %}
+                        <div class="programa_res">
+                            <div class="titulo_res">
+                                <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="fotos_respuestas">
+                                <h1>{{solicitud[7]}} {{solicitud[8]}}</h1>
+                            </div>
+                            <h3 class="Sub_programas">Pais:{{solicitud[14]}}</h3>
+                            <h3 class="Sub_programas">Carrera: {{solicitud[15]}}</h3>
+                            <h3 class="Sub_programas">Solicitud para: {{solicitud[6]}}</h3>
+                            <input type="button" class="boton_visualizar_perfil" onclick="info_alumno({{solicitud[1]}})" value="Visualizar perfil...">
+                            <button class="solicitudes_aceptar" id="solicitud.Aceptar" name="search_field"
+                                onclick="aceptar_al({{ solicitud[0] }})">Aceptar</button>
+                            <button class="solicitudes_aceptar" id="solicitud.Rechazar" name="search_field"
+                                onclick="rechazar_al({{ solicitud[0] }})">Rechazar</button>
+                        </div> 
+                    {% endfor %}
+                {%else%}
+                    <p>No hay solicitudes</p>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
+        <div class="modal-contentAPL1">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modalleter1">Solicitud aceptada</h2>
+            <div>
+                <h4 class="modalleter1">Al estudiante se le notificara la respuesta y se le enviaran los datos para
+                    contactarse.</h4>
+            </div>
+        </div>
+    </div>
+    <div id="myModal2" class="modal1"> <!-- para que aparesca el popup -->
+        <div class="modal-contentAPL1">
+            <span class="close" onclick="closeModal2()">&times;</span>
+            <h2 class="modalleter1">Solicitud rechazada</h2>
+            <div>
+                <h4 class="modalleter">Al estudiante se le notificara la respuesta.</h4>
+            </div>
+        </div>
+    </div>
+    <div id="myModal1" class="modal1"> 
+        <div class="modal-contentAPL1">
+            <span class="close" onclick="closeModal1()">&times;</span>
+            <h2 class="modalleter1">Informacion de contacto:</h2>
+            <p id="modal_alumnos" class="modalleter1"></p> <!-- Este es el elemento que necesita ser encontrado -->
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+@media (max-width: 800px) {
+    .ICgrande{       
+        height: 100%!important;
+        width: 100% !important;
+        margin-top: 0% !important;
+        margin-bottom: 0% !important;
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+        border: #1f3159 !important;
+    }
+    .InicioSecion{
+        background-color: #1f3159 !important;
+    }
+}
+
+.InicioSecion {
+    height: all;
+    width: all;
+    /*background-image: url(edificio.webp);*/
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.ICgrande {
+    border: 2px solid #43423F;
+    border-radius: 25px;
+    height: 90%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: #1f3159;
+}
+
+.ICchico1 {
+    height: 75%;
+    width: 100%;
+}
+
+.ICchico1-1 {
+    height: 40%;
+    text-align: center;
+}
+
+.tituloIC {
+    color: white;
+    font-size: 500%;
+    padding-top: 5%;
+    text-decoration: underline;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.formIC input {
+    margin-top: 10%;
+    width: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+    border: 2px solid #43423F;
+    background-color: #43423F;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+.ICchico1-2 {
+    height: 30%;
+    width: 50%;
+    padding-left: 25%;
+}
+
+#alu_uni{
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  transition: border-color 0.3s ease;
+}
+.ICchico1-2-1 {
+    height: 100%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.ICchico1-3 {
+    height: 30%;
+}
+
+.ICchico1-3 input[type="submit"] {
+    padding: 2%;
+    border-radius: 5px;
+    border: 2px solid #43423F;
+    background-color: #43423F;
+    color: white;
+    cursor: pointer;
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 5%;
+}
+
+.ICchico2 {
+    height: 25%;
+    width: 100%;
+    border-top: 2px dotted #43423F;
+    text-align: center;
+}
+
+.h4dIC {
+    color: white;
+    padding-top: 10%;
+}
+
+.h4dIC1 {
+    color: white;
+}
+
+.modal {
+    display: none;
+    /* para que este oculto */
+    position: fixed;
+    /* para que se quede quieto al escrolear */
+    z-index: 1;
+    /* esta por encima de lo otro */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent
+}
+
+.modal-contentERROR {
+    background-color: #D15B5B;
+    margin-left: 28%;
+    margin-top: 15%;
+    padding: 2%;
+    border: 1px solid #888;
+    width: 40%;
+    text-align: center;
+    border-radius: 25px;
+    height: 20%;
+}
+
+.modalleter {
+    color: #ccc;
+}
+
+.subtituloIC {
+    color: #a0aec0;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: -10%;
+    padding-bottom: 5%;
+}

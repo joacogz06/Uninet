@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Uninet</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_prueba.css')}}"/>
+    <script type="text/javascript" src="../static/Java01"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
+            <div class="caja_menubar">
+                <a href='/perfilalu'>
+                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
+                </a><br>
+                <a href="/perfilalu" class="menutexto">Perfil</a><br>
+                <a href="/homealu"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos" alt="home"></a><br>
+                <a href="/homealu" class="menutexto">Home</a><br>
+                <a href="/enviadas"><img src="../static/mailTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/enviadas" class="menutexto">Enviadas</a><br>
+                <a href="/respuestasalu"><img src="../static/sendTransparente.png" class="menufotos" alt="home"></a><br>
+                <a href="/respuestasalu" class="menutexto">Respuestas</a>
+            </div>
+        </div>
+        <div class="contenedor">
+            <div class="margen">
+                <div class="flecha" onclick="ApareceMenu()">
+                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
+                            onclick="ApareceMenu()"></a><br>
+                </div>
+            </div>
+            <div id="site_content">
+                <div id="programa_content">
+                    <div id="content">
+                        <h1>{{programas[1]}} - {{programas[8]}}</h1>
+            
+                        <h3 class="Sub_programas">Ciudad:{{programas[9]}}</h3>
+            
+                        <h3 class="Sub_programas">Precio:{{programas[3]}} $</h3>
+                        <h3 class="Sub_programas">Modalidad:{{programas[5]}}</h3>
+                        <p>{{programas[7]}}</p>
+                        
+                        <div class="plan-estudios">
+                            <div class="materia">
+                                <h4>Requisitos</h4>
+                                <ul>
+                                    {{programas[4]}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="solicitud_">
+                            <a href="/respuestasalu"><input class="solicitud" type="button" name="search_field" value="Volver" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
