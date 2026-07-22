@@ -1,6 +1,8 @@
-from _mysql_db import *
+from _mysql_db import * #(para tener acceso a selectDB y BASE sin declararlos de nuevo)
 from flask import session, url_for
 from datetime import datetime
+
+#estas 2 son iguales para alumno y uni
 
 def obtenerCiudades():
     sQuery = "SELECT id, nombre FROM ciudad"
@@ -14,21 +16,21 @@ def obtenerCarrera():
 ######################################### UNIVERSIDAD #################################################################################
 ######################################################################################################################################
 
-def editarperfiluni(diRequest,user_id):
+def editarperfiluni(diRequest,user_id): # diRequest es un diccionario con los datos que llegaron del formulario
     val = (diRequest.get("nombreuni"),diRequest.get("ciudaduni"),diRequest.get("mailuni"),diRequest.get("telefonouni"),diRequest.get("linkuni"),user_id)
 
     sQuery = "UPDATE universidad SET nombre = %s, id_ciudad = %s, email = %s, telefono = %s, link = %s WHERE id=%s"
     
     ciudades=obtenerCiudades()
 
-    if updateDB(BASE,sQuery,val): #cant de filas afectadas
-        id_ciudad=diRequest.get("ciudaduni")
+    if updateDB(BASE,sQuery,val): #si modifico una fila (si el UPDATE modificó exitosamente)
+        id_ciudad=diRequest.get("ciudaduni") #guardar la nueva ciudad
         ciudad_nombre=""
         for ciudad in ciudades:
             if ciudad[0]==int(id_ciudad):
                 ciudad_nombre=ciudad[1]
         session['nombre'] = diRequest.get("nombreuni")
-        session['ciudad'] = ciudad_nombre
+        session['ciudad'] = ciudad_nombre # actualiza la sesión completa con todos los datos nuevos
         session['email'] = diRequest.get("mailuni")
         session['telefono'] = diRequest.get("telefonouni")
         session['link'] = diRequest.get("linkuni")
@@ -51,7 +53,7 @@ def obtenerUniXEmailPass(result, email, password):
     try:
         fila = selectDB(BASE, sSql, val)
     
-        if fila:
+        if fila: #si encontro coincidencia da los datos
             res = True
             result['id'] = fila[0][0]
             result['nombre'] = fila[0][1]
@@ -75,11 +77,11 @@ def crearUsuario(di):
         VALUES
         (%s,%s, %s, %s, %s, %s, %s);
     """
-       
+    
     val=(None,di.get('nombreuni'), di.get('id_ciudad'), di.get('mail'), di.get('password'), di.get("telefono"), di.get("link"))
     try:
         resul_insert=insertDB(BASE,sQuery,val) #insert devuelve la cantidad de filas que afecta
-        if resul_insert == 1:
+        if resul_insert == 1: #si es uno es porque se creo correctamente
             res=True
         else:
             res=False
@@ -97,7 +99,7 @@ def obtenerProgramas(email, password):
     val = (email, password)
     
     try:
-        filas = selectDB(BASE, sSql, val)
+        filas = selectDB(BASE, sSql, val) #trae una tupla todas las filas que tengan que ver con sSql
     
         if filas:
             res = filas
@@ -242,7 +244,7 @@ def obtenerAluXEmailPass(result, email, password):
 def ObtenertodosProgramas():
     sQuery = """
         SELECT programa.id, programa.nombre, universidad.nombre AS universidad_nombre, 
-           programa.precio, programa.requisitos, programa.modalidad, programa.estado, programa.descripcion
+        programa.precio, programa.requisitos, programa.modalidad, programa.estado, programa.descripcion
         FROM programa
         INNER JOIN universidad ON programa.id_universidad = universidad.id
         LEFT JOIN solicitud ON programa.id = solicitud.id_programa AND solicitud.id_alumno = %s

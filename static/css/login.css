@@ -1,0 +1,418 @@
+/* ============================================
+  Uninet — Login (inicio.html)
+  Paleta: navy tinta / papel hueso / bronce sello
+   ============================================ */
+
+:root { /*para no tener que escribir los codigos de los colores dentro de navy los almaceno en variables que empiezan con --*/
+  --navy: #101c34;
+  --navy-2: #1b2c4f;
+  --paper: #ece8dd;
+  --gold: #b08d4f;
+  --gold-dim: #8f7139; /*estas son colores*/
+  --ink: #1b1b1b;
+  --mist: #8c96ac;
+  --error: #a23e2d;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; /*estas tipografias*/
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { /*selecciona todos los elementos del html*/
+  box-sizing: border-box; /*cambia cómo el navegador calcula el tamaño de una caja*/
+}
+
+html, body {
+  height: 100%; /*si tiene poca info no se vea chiquito*/
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/*   general   */
+
+.portal {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /*divide en 2 columnas iguales*/
+  min-height: 100vh;
+}
+
+/*  Panel izquierdo: marca  */
+
+.portal__brand {
+  position: relative; /*para que brand_grid se posicione relativo a el, no a toda la pagina*/
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4rem 4.5rem;
+  overflow: hidden; /*que no se desborde el fondo*/
+}
+
+.brand__grid {
+  position: absolute; /*para que brand_grid se posicione relativo a el, no a toda la pagina*/
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(176, 141, 79, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 141, 79, 0.14) 1px, transparent 1px); /*el fondo de cuadraditos*/
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 30% 30%, black 40%, transparent 80%); /*algunas partes del fondo se ven menos*/
+}
+
+.brand__content {
+  position: relative;
+  z-index: 1; /*queda arriba cuando se superpone con otra cosa*/
+}
+
+.brand__eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.brand__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 4.5rem;
+  line-height: 1;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.brand__tagline {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--mist);
+  max-width: 26ch;
+  margin: 0;
+}
+
+.brand__footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--mist);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.brand__dot { /*el puntito dorado*/
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ===== Panel derecho: acceso ===== */
+
+.portal__access {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: var(--paper);
+}
+
+.access__card {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Selector estilo "boarding pass" */
+
+.ticket { 
+  border: 1px solid rgba(27, 27, 27, 0.14);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  margin-bottom: 2rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.ticket::after {
+  content: "";
+  position: absolute;
+  right: 3.4rem;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed rgba(27, 27, 27, 0.18);
+}
+
+.ticket__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+.ticket__select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ticket__select { /*seleccionar entre alumno y uni*/
+  appearance: none;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
+  padding-right: 1.3rem;
+  cursor: pointer;
+}
+
+.ticket__select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.ticket__chevron {
+  position: absolute;
+  right: 0;
+  color: var(--gold-dim);
+  pointer-events: none;
+}
+
+.access__title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 500;
+  margin: 0 0 1.75rem;
+  color: var(--navy);
+}
+
+.access__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.field { /*se aplica a todos los campos menos ticket*/
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field__label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--navy-2);
+}
+
+.field__input {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgba(27, 27, 27, 0.16);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease; /*efecto visual*/
+}
+
+.field__input::placeholder {
+  color: rgba(27, 27, 27, 0.32);
+}
+
+.field__input:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(176, 141, 79, 0.18);
+}
+
+.field__input.is-invalid {
+  border-color: var(--error);
+}
+
+.field__error {
+  font-size: 0.78rem;
+  color: var(--error);
+  min-height: 1em;
+}
+
+.access__submit {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.access__submit:hover {
+  background: var(--navy-2);
+}
+
+.access__submit:active {
+  transform: translateY(1px); /*se unde el boton al apretar*/
+}
+
+.access__submit svg { /*icono de la flechita*/
+  transition: transform 0.15s ease;
+}
+
+.access__submit:hover svg {
+  transform: translateX(3px); /*la flechita se mueve*/
+}
+
+.access__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.75rem 0 1.1rem;
+  font-size: 0.78rem;
+  color: var(--mist);
+}
+
+.access__divider::before,
+.access__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(27, 27, 27, 0.12);
+}
+
+.access__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.access__link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(27, 27, 27, 0.12);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 500;
+  background: #fff;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.access__link:hover {
+  border-color: var(--gold);
+  background: rgba(176, 141, 79, 0.06);
+}
+
+.access__link-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  border: 1px solid rgba(176, 141, 79, 0.4);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  flex-shrink: 0;
+}
+
+/*  Modal de error  */
+
+.modal {
+  display: none; /*oculto por defecto*/
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 28, 52, 0.55);
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /*pisa todo lo que tiene abajo*/
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal__content {
+  position: relative;
+  background: #fff;
+  border-top: 4px solid var(--error);
+  border-radius: 10px;
+  padding: 2rem 2.25rem;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(16, 28, 52, 0.3);
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--mist);
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  color: var(--ink);
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin: 0 0 0.6rem;
+  color: var(--navy);
+}
+
+.modal__message {
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive */
+
+@media (max-width: 860px) { /*aplica solo cuando la pantalla mide menos de 860*/
+  .portal {
+    grid-template-columns: 1fr;
+  }
+
+  .portal__brand {
+    padding: 3rem 2rem; /*unidad de tamaño relativa*/
+    min-height: 40vh; /*vh porcentaje de altura visible dentro de la pantalla*/
+  }
+
+  .brand__title {
+    font-size: 3rem;
+  }
+
+  .portal__access {
+    padding: 2.5rem 1.5rem 3.5rem;
+  }
+}

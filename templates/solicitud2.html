@@ -1,94 +1,108 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Uninet</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Solicitudes recibidas en Uninet." />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/solicitud2.css')}}"> <!--url_for es una función de Flask que arma la URL correcta a un archivo dentro de static_folder, esta es la coneccion con el bakc-->
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/solicitud2.js')}}"></script>
+    </head>
 
-<head>
-    <title>Uninet</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
-    <script type="text/javascript" src="../static/Java01"></script>
-</head>
+    <body>
 
-<body>
-    <div class="main">
-        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-            <div class="caja_menubar">
-                <a href='/perfil2'>
-                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
-                </a><br>
-                <a href="/perfil2" class="menutexto">Perfil</a><br>
-                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
-                        alt="home"></a><br>
-                <a href="/" class="menutexto">Home</a><br>
-                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
-                        class="menufotos" alt="home"></a><br>
-                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar__close" onclick="toggleSidebar()" aria-label="Cerrar menú">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="sidebar__brand">Uninet</div>
+            <div class="sidebar__role">Cuenta de universidad</div>
+
+            <nav class="sidebar__nav">
+                <a href="/perfil2" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                    Perfil
+                </a>
+                <a href="/" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+                    Home
+                </a>
+                <a href="/solicitud2" class="navlink is-active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    Solicitudes
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                Universidades y estudiantes, en la misma red.
             </div>
-        </div>
-        <div class="contenedor">
-            <div class="margen {{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-                <div class="flecha" onclick="ApareceMenu()">
-                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
-                            onclick="ApareceMenu()"></a><br>
-                </div>
-            </div>
-            <div id="site_content2">
-                <div id="buscador_respuestas">
-                    <h1>Aca se encuentran las solicitudes de estudiantes:</h1>
-                </div>
-                {% if solicitudes %}
-                    {% for solicitud in solicitudes %}
-                        <div class="programa_res">
-                            <div class="titulo_res">
-                                <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="fotos_respuestas">
-                                <h1>{{solicitud[7]}} {{solicitud[8]}}</h1>
+        </aside>
+
+        <main class="main">
+            <div class="content">
+                <h1 class="topbar__title">Solicitudes recibidas</h1>
+
+                <div class="programs">
+                    {% for solicitud in solicitudes or [] %}
+                    <div class="card" data-id="{{solicitud[0]}}"> <!-- {{ }} = Jinja detecta esto y lo reemplaza por el valor real de Python antes de mandar el HTML al navegador -->
+                        <div class="card__avatar">{{ (solicitud[7] or ' ')[:1] }}{{ (solicitud[8] or ' ')[:1] }}</div>
+                        <div class="card__body">
+                            <div class="card__top">
+                                <h2 class="card__title">{{solicitud[7]}} {{solicitud[8]}}</h2>
                             </div>
-                            <h3 class="Sub_programas">Pais:{{solicitud[14]}}</h3>
-                            <h3 class="Sub_programas">Carrera: {{solicitud[15]}}</h3>
-                            <h3 class="Sub_programas">Solicitud para: {{solicitud[6]}}</h3>
-                            <input type="button" class="boton_visualizar_perfil" onclick="info_alumno({{solicitud[1]}})" value="Visualizar perfil...">
-                            <button class="solicitudes_aceptar" id="solicitud.Aceptar" name="search_field"
-                                onclick="aceptar_al({{ solicitud[0] }})">Aceptar</button>
-                            <button class="solicitudes_aceptar" id="solicitud.Rechazar" name="search_field"
-                                onclick="rechazar_al({{ solicitud[0] }})">Rechazar</button>
-                        </div> 
+                            <p class="card__uni">{{solicitud[15]}} · {{solicitud[14]}}</p>
+                            <p class="card__desc">Solicitud para: {{solicitud[6]}}</p>
+                        </div>
+                        <div class="card__bottom">
+                            <button type="button" class="btn-ghost btn-small" onclick="verPerfil({{solicitud[1]}})">Ver perfil</button>
+                            <button type="button" class="btn-accept" onclick="responderSolicitud(this, {{solicitud[0]}}, 'aceptado')">Aceptar</button>
+                            <button type="button" class="btn-reject" onclick="responderSolicitud(this, {{solicitud[0]}}, 'rechazado')">Rechazar</button>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="empty-state">No hay solicitudes pendientes.</p>
                     {% endfor %}
-                {%else%}
-                    <p>No hay solicitudes</p>
-                {%endif%}
+                </div>
             </div>
-        </div>
-    </div>
-    <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
-        <div class="modal-contentAPL1">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 class="modalleter1">Solicitud aceptada</h2>
-            <div>
-                <h4 class="modalleter1">Al estudiante se le notificara la respuesta y se le enviaran los datos para
-                    contactarse.</h4>
-            </div>
-        </div>
-    </div>
-    <div id="myModal2" class="modal1"> <!-- para que aparesca el popup -->
-        <div class="modal-contentAPL1">
-            <span class="close" onclick="closeModal2()">&times;</span>
-            <h2 class="modalleter1">Solicitud rechazada</h2>
-            <div>
-                <h4 class="modalleter">Al estudiante se le notificara la respuesta.</h4>
-            </div>
-        </div>
-    </div>
-    <div id="myModal1" class="modal1"> 
-        <div class="modal-contentAPL1">
-            <span class="close" onclick="closeModal1()">&times;</span>
-            <h2 class="modalleter1">Informacion de contacto:</h2>
-            <p id="modal_alumnos" class="modalleter1"></p> <!-- Este es el elemento que necesita ser encontrado -->
-        </div>
-    </div>
-    
-</body>
+        </main>
 
+        <!-- Modal: perfil del alumno -->
+        <div id="modalPerfil" class="modal">
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal('modalPerfil')" aria-label="Cerrar">&times;</button>
+                <h2 class="modal__title">Información de contacto</h2>
+                <div id="modal_alumno_body" class="modal__profile">
+                    <p class="modal__loading">Cargando...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: confirmacion aceptar -->
+        <div id="modalAceptar" class="modal">
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal('modalAceptar')" aria-label="Cerrar">&times;</button>
+                <h2 class="modal__title">Solicitud aceptada</h2>
+                <p class="modal__message">Al estudiante se le notificará la respuesta y se le enviarán los datos para contactarse.</p>
+            </div>
+        </div>
+
+        <!-- Modal: confirmacion rechazar -->
+        <div id="modalRechazar" class="modal">
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal('modalRechazar')" aria-label="Cerrar">&times;</button>
+                <h2 class="modal__title">Solicitud rechazada</h2>
+                <p class="modal__message">Al estudiante se le notificará la respuesta.</p>
+            </div>
+        </div>
+
+    </body>
 </html>

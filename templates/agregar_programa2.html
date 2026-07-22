@@ -1,87 +1,104 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Uninet</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Cargá un nuevo programa en Uninet." />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/agregar_programa2.css')}}">
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/agregar_programa2.js')}}"></script>
+    </head>
 
-<head>
-    <title>Uninet</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_prueba.css')}}" />
-    <script type="text/javascript" src="../static/Java_editar_perfil"></script>
-</head>
+    <body>
 
-<body>
-    <div class="main">
-        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-            <div class="caja_menubar">
-                <a href='/perfil2'>
-                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
-                </a><br>
-                <a href="/perfil2" class="menutexto">Perfil</a><br>
-                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
-                        alt="home"></a><br>
-                <a href="/" class="menutexto">Home</a><br>
-                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
-                        class="menufotos" alt="home"></a><br>
-                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar__close" onclick="toggleSidebar()" aria-label="Cerrar menú">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="sidebar__brand">Uninet</div>
+            <div class="sidebar__role">Cuenta de universidad</div>
+
+            <nav class="sidebar__nav">
+                <a href="/perfil2" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                    Perfil
+                </a>
+                <a href="/" class="navlink is-active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+                    Home
+                </a>
+                <a href="/solicitud2" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    Solicitudes
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                Universidades y estudiantes, en la misma red.
             </div>
-        </div>
+        </aside>
 
-        <div class="contenedor">
-            <div class="margen">
-                <div class="flecha" onclick="ApareceMenu()">
-                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
-                            onclick="ApareceMenu()"></a><br>
-                </div>
-            </div>
-            <div id="site_content2">
-                <h1>Crear un programa</h1>
-                <div class="per">
-                    <form action="/nuevo_programa" method="post" onsubmit="return totalcrearprograma()">
-                        <div class="per3">
-                            <div class="columna1dP2">
-                                <input type="text" id="nombrepro"  name="nombrepro" placeholder="Nombre del programa"
-                                    onblur="validateNom(this.id)">
-                                <input type="text" id="duracionpro" name="precio" placeholder="Precio"
-                                    onblur="validateNombre(this.id)">
-                                <input type="text" id="fechapro" name='modalidad' placeholder="Modalidad"
-                                    onblur="validateNombre(this.id)">
-                            </div>
-                            <div class="columna2dP2">
-                                <h2 class="requisitos" >Requisitos</h2>
-                                <input type="text" id="visapro" name="requisitos" placeholder="Promedio, visado, idioma, etc..."
-                                    onblur="validateNombre(this.id)">
-                            </div>
+        <main class="main">
+            <div class="content">
+                <a href="/" class="back-link">← Volver a tus programas</a>
+
+                <h1 class="topbar__title">Agregar programa</h1>
+                <p class="topbar__subtitle">Cargá un nuevo programa para que los estudiantes puedan postularse.</p>
+
+                <form action="/nuevo_programa" method="post" id="form_agregar_programa" novalidate>
+                    <div class="grid2">
+                        <div class="field">
+                            <label for="nombrepro">Nombre del programa</label>
+                            <input id="nombrepro" name="nombrepro" type="text" placeholder="Ej: Ingeniería en Sistemas">
                         </div>
-                        <div class="per5">
-                            <h2>Descripcion del programa</h2>
-                            <div class="per6">
-                                <input type="text" id="descripcionpro" name="descripcion"
-                                    placeholder="Escriba aqui la descripcion del programa"
-                                    onblur="validateNombre(this.id)">
-                            </div>
+                        <div class="field">
+                            <label for="duracionpro">Precio</label>
+                            <input id="duracionpro" name="precio" type="text" placeholder="4200">
                         </div>
-                        <div class="per7">
-                            <div class="boton">
-                                <input class="boton_perfil" type="submit" name="search_field" value="Guadar" />
-                            </div>
+
+                        <div class="field field--full">
+                            <label for="fechapro">Modalidad</label>
+                            <input id="fechapro" name="modalidad" type="text" placeholder="Presencial, virtual o híbrido">
                         </div>
-                    </form>
-                </div>
-                <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
-                    <div class="modal-contentERROR">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <h2 class="modalleter">ERROR</h2>
-                        <div>
-                            <p id="error-message"></p>
+
+                        <div class="field field--full">
+                            <label for="visapro">Requisitos</label>
+                            <input id="visapro" name="requisitos" type="text" placeholder="Promedio, visado, idioma, etc...">
+                        </div>
+
+                        <div class="field field--full">
+                            <label for="descripcionpro">Descripción</label>
+                            <textarea id="descripcionpro" name="descripcion" placeholder="Escribí una descripción completa del programa..."></textarea>
                         </div>
                     </div>
-                </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                            Publicar programa
+                        </button>
+                        <a href="/" class="btn-ghost">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <div id="myModal" class="modal">
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
+                <h2 class="modal__title">Revisá el formulario</h2>
+                <p class="modal__message" id="error-message">{{error}}</p>
             </div>
         </div>
-    </div>
-</body>
 
+    </body>
 </html>

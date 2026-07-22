@@ -110,7 +110,7 @@ def route(app):
     def homealu():
         programas=ObtenertodosProgramas()
         return render_template("home.html",programas=programas)
-   
+
     @app.route("/editar_perfil", methods=["POST"])
     def editar_perfil():
         res= editar_perfil_alu()
@@ -154,7 +154,7 @@ def route(app):
     
     @app.route("/buscar_home", methods=["GET", "POST"])
     def buscar_h():
-       return buscarHome()
+        return buscarHome()
     
     @app.route("/buscar_enviadas", methods=["GET", "POST"])
     def buscar_e():

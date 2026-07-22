@@ -1,17 +1,17 @@
 
 from flask import request, session, redirect, render_template
-import mariadb
+import mariadb  # sin este paquete, Python no tendría ninguna forma de conectarse a una base de datos SQL
 ############################################################################
 ################### FUNCIONES PRINCIPALES ####################################
-def conectarBD(configDB=None): #por que no es base =NOne?? porque configDB, de donde salio, donde lo declare??
+def conectarBD(configDB=None): 
     ''' # Establecer una conexión con el servidor MySQL
         # retorna la conexión
     '''
     mydb=None
     if configDB!=None:
         try:        
-            mydb = mariadb.connect(
-                    host=configDB.get("host"),
+            mydb = mariadb.connect( #la coneccion con la base de datos
+                    host=configDB.get("host"), 
                     user=configDB.get("user"),
                     password=configDB.get("pass"),
                     database=configDB.get("dbname")
@@ -31,16 +31,16 @@ def cerrarBD(mydb):
 
 def consultarDB(mydb,sQuery="",val=None,title=False): 
     if type(val) not in (tuple,list):
-        val=(val,)
+        val=(val,) # si el valor no vino en una tupla lo meto adentro de una, porque mariadb necesita eso si o si
     myresult=None
     try:
         if mydb!=None:
-            mycursor = mydb.cursor()
+            mycursor = mydb.cursor() # Creo el cursor, el que manda y recibe los datos
             if val==None:
                 mycursor.execute(sQuery)
             else:
-                mycursor.execute(sQuery,val) #se fija que ningun parametro sea malo.
-            myresult = mycursor.fetchall()
+                mycursor.execute(sQuery,val) # Si tengo valores, se los mando aparte (mas seguro)
+            myresult = mycursor.fetchall() # Traigo TODAS las filas que encontró la consulta
             if title:
                 myresult.insert(0,mycursor.column_names)
     except mariadb.Error as e:
@@ -118,7 +118,7 @@ def updateDB(configDB=None,sql="",val=None):
         mydb=conectarBD(configDB)
         res=ejecutarDB(mydb,sQuery=sql,val=val)
         cerrarBD(mydb)
-    return res
+    return res #debuelve cuántas filas modificó la consulta UPDATE, 1 si modificó una fila, 0 si no modificó ninguna.
 
 def deleteDB(configDB=None,sql="",val=None):
     ''' ########## DELETE
@@ -144,10 +144,10 @@ def deleteDB(configDB=None,sql="",val=None):
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 #es el unico diccionario que esta global, no puedo modificarlo desde cualquier lado, es una constante.
-BASE={ "host":"localhost",
-        "user":"root", #usuarios en produccion?
-        "pass":"",
-        "dbname":"uninet"}
+BASE={ "host":"localhost", #host: dónde vive el servidor de base de datos
+        "user":"root", # user: con qué usuario de MySQL te conectás. root: es el usuario administrador 
+        "pass":"", #contrasenia del usuario (root no tiene)
+        "dbname":"uninet"} #nombre de la base de datos
 
 
 

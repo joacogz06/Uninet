@@ -1,67 +1,88 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Uninet</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Tus solicitudes enviadas en Uninet." />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/enviadas.css')}}">
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/enviadas.js')}}"></script>
+    </head>
 
-<head>
-    <title>Uninet</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
-    <script type="text/javascript" src="../static/Java01"></script>
-</head>
+    <body>
 
-<body>
-    <div class="main">
-        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-            <div class="caja_menubar">
-                <a href='/perfilalu'>
-                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
-                </a><br>
-                <a href="/perfilalu" class="menutexto">Perfil</a><br>
-                <a href="/homealu"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos" alt="home"></a><br>
-                <a href="/homealu" class="menutexto">Home</a><br>
-                <a href="/enviadas"><img src="../static/mailTransparente.png" class="menufotos" alt="home"></a><br>
-                <a href="/enviadas" class="menutexto">Enviadas</a><br>
-                <a href="/respuestasalu"><img src="../static/sendTransparente.png" class="menufotos" alt="home"></a><br>
-                <a href="/respuestasalu" class="menutexto">Respuestas</a>
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar__close" onclick="toggleSidebar()" aria-label="Cerrar menú">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="sidebar__brand">Uninet</div>
+            <div class="sidebar__role">Cuenta de estudiante</div>
+
+            <nav class="sidebar__nav">
+                <a href="/perfilalu" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                    Perfil
+                </a>
+                <a href="/homealu" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+                    Home
+                </a>
+                <a href="/enviadas" class="navlink is-active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    Enviadas
+                </a>
+                <a href="/respuestasalu" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    Respuestas
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                Universidades y estudiantes, en la misma red.
             </div>
-        </div>
-        <div class="contenedor">
-            <div class="buscador">
-                <div class="cajita_buscador">
-                    <div class="flecha" onclick="ApareceMenu()">
-                        <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home" onclick="ApareceMenu()"></a><br>
-                    </div>
-                    <form action="/buscar_enviadas" method="get" class="search_field">
-                        <input type="text" name="busqueda" placeholder="Buscar programas..." class="search">
-                        <input type="submit" value="Buscar" class="boton_buscar">
+        </aside>
+
+        <main class="main">
+            <div class="content">
+                <div class="topbar">
+                    <h1 class="topbar__title">Solicitudes enviadas</h1>
+                    <form class="search" action="/buscar_enviadas" method="get">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input type="text" name="busqueda" placeholder="Buscar programas...">
                     </form>
                 </div>
-            </div>
-            <div id="site_content">
-                <div class="tituloFijo">
-                    <h1>Estos son las solicitudes que enviaste y aun no hay respuesta:</h1>
-                </div>
-                {%if solicitudes%}
-                {%for solicitud in solicitudes%}
-                <div class="programa">
-                    <h3 id="eviadohace">ENVIADO HACE: {{solicitud[8]}} días.</h3>
-                    <h1>{{solicitud[1]}} - {{solicitud[5]}}</h1>
-                    <h3 class="Sub_programas">Pais:{{solicitud[6]}}</h3>
-                    <h3 class="Sub_programas">Precio: {{solicitud[2]}}</h3>
-                    <h3 class="Sub_programas">Modalidad: {{solicitud[3]}}</h3>
-                    <p id="ver_mas">{{solicitud[4]}}</p>
-                </div>
-                {%endfor%}
-                
-                {%else%}
-                    <p>No hay enviadas</p>
-                {%endif%}
-            </div>
-        </div>
-    </div>
-</body>
 
+                <div class="programs">
+                    {% for solicitud in solicitudes or [] %}
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="card__top">
+                                <h2 class="card__title">{{solicitud[1]}}</h2>
+                                <span class="card__modalidad">{{solicitud[3]}}</span>
+                            </div>
+                            <p class="card__uni">{{solicitud[5]}} · {{solicitud[6]}}</p>
+                            <p class="card__desc">{{solicitud[4]}}</p>
+                        </div>
+                        <div class="card__bottom">
+                            <div class="card__price">{{solicitud[2]}}$</div>
+                            <span class="card__sent">Enviado el {{solicitud[8]}}</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="empty-state">Todavía no enviaste ninguna solicitud.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+
+    </body>
 </html>

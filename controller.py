@@ -7,10 +7,10 @@ from appConfig import config
 ######################################### FUNCIONES CONJUNTAS  ###############################################################
 #####################################################################################################################
 
-def ingresoUsuarioValido(error,request):
+def ingresoUsuarioValido(error,request): #request lo genera flask automaticamente, datos del navegador como matodo o datos del formulario
     mirequest={}
     getRequet(mirequest)
-    tipo_usuario = mirequest.get("alu/uni")
+    tipo_usuario = mirequest.get("alu/uni") #busca el valor de alu/uni
     user=mirequest.get("user_mail")
     password=mirequest.get("password")
     
@@ -19,7 +19,7 @@ def ingresoUsuarioValido(error,request):
     elif tipo_usuario=="Universidad":
         if crearSesion(request):
             programas=obtenerProgramas(user,password)
-            res=render_template('home2.html',error=error, programas=programas)
+            res=render_template('home2.html',error=error, programas=programas) #render_template arma y muestra un HTML sin cambiar la URL (una sola petición).
         else:
             error = "Error: Usuario o contraseña inválidos para Universidad."
     elif tipo_usuario=="Alumno":
@@ -41,7 +41,7 @@ def cerrarSesion():
 
 def getRequet(diResult):  # Función para obtener los datos de la solicitud y almacenarlos en un diccionario
     if request.method=='POST':                   #request es global # Si el método de la solicitud es POST
-        for name in request.form.to_dict().keys():  # Itera sobre las claves del formulario
+        for name in request.form.to_dict().keys():  #to_dict(): lo convierte a diccionario normal de Python, keys() solo las claves, sin los valores
             li=request.form.getlist(name)           # Obtiene la lista de valores para cada clave
             if len(li)>1:                           # Si hay más de un valor
                 diResult[name]=request.form.getlist(name)  # Almacena la lista de valores en el diccionario
@@ -50,7 +50,7 @@ def getRequet(diResult):  # Función para obtener los datos de la solicitud y al
             else:                                   # Si no hay valores
                 diResult[name]=""                   # Almacena una cadena vacía en el diccionario
     elif request.method=='GET':                   # Si el método de la solicitud es GET
-        for name in request.args.to_dict().keys():  # Itera sobre las claves de los argumentos
+        for name in request.args.to_dict().keys(): 
             li=request.args.getlist(name)           # Obtiene la lista de valores para cada clave
             if len(li)>1:                           # Si hay más de un valor
                 diResult[name]=request.args.getlist(name)  # Almacena la lista de valores en el diccionario

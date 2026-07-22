@@ -1,88 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="es"> <!--es es abreviacion de español-->>
+    <head>
+        <title>Uninet</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8"> <!--soporta caracteres tipo UTF-8 (estandar universale)-->>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--para responsive (le dice: usá el ancho real de la pantalla del dispositivo, no un ancho fijo)-->>
+        <meta name="description" content="Crea tu cuenta de estudiante en Uninet." /> <!--descipcion para google-->
+        <link rel="preconnect" href="https://fonts.googleapis.com"> <!--para permisos y coneccion rapida-->
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!--para permisos y coneccion rapida-->
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/crearcuenta.css')}}"> <!--coneccion con css-->
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/crearcuenta.js')}}"></script> <!--coneccion con js-->
+    </head>
 
-<head>
-    <title>Uninet</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <link rel="stylesheet" type="text/css" href="../static/style_crearC.css" />
-    <script type="text/javascript" src="../static/Java01"></script>
-</head>
+    <body>
+        <div class="frame">
 
-<body class="CrearCuenta">
-    <div class="CCgrande">
-        <div class="CCmediano1">
-            <h1 class="tituloCC">Uninet </h1>
-            <h2 class="CCsubtitulo">cuenta estudiantil</h2>
-        </div>
-        <form method="post" action="/crearUsuarioalu" onsubmit="return totalestudiante()">
-            <div class="CCmediano2">
-                <div class="CCcolumna1">
-                    <div class="CCform1">
-                        <input id="NOMBRE" type="text" name="nombrealu" placeholder="Nombre"
-                            onblur="validateNom(this.id)">
-                        <div class="cuentarror"></div>
-                        <input id="APELLIDO" name="apellidoalu" type="text" placeholder="Apellido"
-                            onblur="validateNom(this.id)">
-                        <div class="cuentarror"></div>
-                        <input id="PASSWORD" name="passalu" type="password" placeholder="Password"
-                            onblur="validatepass()">
-                        <div id="passerror" class="cuentarror"></div>
-                        <input id="CORREO" name="emailalu" type="text" placeholder="Correo electronico"
-                            onblur="validategmail()">
-                        <div id="correoerror" class="cuentarror"></div>
-                        <input id="TELEFONO" name="telefonoalu" type="text" placeholder="Numero de telefono"
-                            onblur="validatenum()">
-                        <div id="teleerror" class="cuentarror"></div>
+            <!-- panel izquierdo: formulario -->
+            <div class="access">
+                <span class="access__eyebrow">Cuenta de estudiante</span> <!--el span es un tipo de div que no hace que lo siguiente cambi de linea-->
+                <h1 class="access__title">Creá tu cuenta</h1>
+                <p class="access__subtitle">Completá tus datos para empezar a postularte a programas universitarios en todo el mundo.</p>
+
+                <form method="post" action="/crearUsuarioalu" id="form_crear_alumno" novalidate> <!--el form hace que se mande todos los datos juntos, el novalidate es para que no lo valide el buscador y no aparesca el cartelito de error del navegador-->
+                    <div class="grid2">
+                        <div class="field">
+                            <label for="NOMBRE">Nombre</label> <!--descripcion del campo-->
+                            <input id="NOMBRE" type="text" name="nombrealu" placeholder="Tu nombre"> <!--donde el usuario escribe-->
+                        </div>
+                        <div class="field">
+                            <label for="APELLIDO">Apellido</label>
+                            <input id="APELLIDO" name="apellidoalu" type="text" placeholder="Tu apellido">
+                        </div>
+
+                        <div class="field">
+                            <label for="CORREO">Correo electrónico</label>
+                            <input id="CORREO" name="emailalu" type="text" placeholder="tu@correo.com">
+                        </div>
+                        <div class="field">
+                            <label for="PASSWORD">Contraseña</label>
+                            <input id="PASSWORD" name="passalu" type="password" placeholder="••••••••">
+                        </div>
+
+                        <div class="field">
+                            <label for="TELEFONO">Teléfono</label>
+                            <input id="TELEFONO" name="telefonoalu" type="text" placeholder="+54 11 ...">
+                        </div>
+                        <div class="field">
+                            <label for="DNI">DNI</label>
+                            <input id="DNI" name="dnialu" type="text" placeholder="00.000.000">
+                        </div>
+
+                        <div class="field">
+                            <label for="PROMEDIO">Promedio</label>
+                            <input id="PROMEDIO" type="text" name="promedioalu" placeholder="8.50">
+                        </div>
+                        <div class="field">
+                            <label for="FACU">Institución actual</label>
+                            <input id="FACU" name="facualu" type="text" placeholder="Colegio o institución">
+                        </div>
+
+                        <div class="field">
+                            <label for="CARRERA">Carrera</label>
+                            <select id="CARRERA" name="carreraalu"> <!--menu desplegable-->
+                                <option value="" disabled selected>Seleccioná una carrera</option>
+                                {% for carrera in carreras %}
+                                <option value="{{carrera[0]}}">{{carrera[1]}}</option> <!--cada opcion del menu-->
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="PAIS">Ciudad</label>
+                            <select id="PAIS" name="ciudadalu">
+                                <option value="" disabled selected>Seleccioná una ciudad</option>
+                                {% for ciudad in ciudades %}
+                                <option value="{{ciudad[0]}}">{{ciudad[1]}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="field field--full">
+                            <label for="SITUACION">Presentación breve</label>
+                            <input id="SITUACION" name="situacionalu" type="text" placeholder="Contanos un poco sobre vos y qué buscás en un programa...">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit"> <!--enviar-->
+                        <span>Crear cuenta</span>
+                    </button>
+                </form>
+
+                <a href="/login" class="back-link">← Volver al inicio de sesión</a>
+            </div>
+
+            <!-- panel derecho: marca -->
+            <div class="brand">
+                <div class="brand__grid" aria-hidden="true"></div> <!--div decorativo e invisible-->
+                <div class="brand__content">
+                    <span class="brand__eyebrow">Plataforma de admisiones</span>
+                    <h1 class="brand__title">Uninet</h1>
+                    <p class="brand__tagline">Tu perfil, listo para postularte a programas <em>en todo el mundo</em>.</p> <!--en es de enfasis-->
+
+                    <div class="brand__steps">
+                        <div class="step is-active">
+                            <span class="step__mark">1</span>
+                            <span>Creás tu cuenta de estudiante</span>
+                        </div>
+                        <div class="step">
+                            <span class="step__mark">2</span>
+                            <span>Explorás programas disponibles</span>
+                        </div>
+                        <div class="step">
+                            <span class="step__mark">3</span>
+                            <span>Te postulás y esperás respuesta</span>
+                        </div>
                     </div>
                 </div>
-                <div class="CCcolumna2">
-                    <div class="CCform2">
-                        <input id="PROMEDIO" type="text" name="promedioalu" placeholder="Promedio"
-                            onblur="validateprom()">
-                        <div id="promedioerror" class="cuentarror"></div>
-                        <input id="DNI" name="dnialu" type="text" placeholder="DNI" onblur="validatenumdni()">
-                        <div id="dnierror" class="cuentarror"></div>
-                        <input id="FACU" name="facualu" type="text" placeholder="Universidad o institucion asistida"
-                            onblur="validateNom(this.id)">
-                        <div class="cuentarror"></div>
-                        <select id="CARRERA" name="carreraalu" class="select-ciudad" onblur="validalista(this.id)">
-                            <option value="" disabled selected>Selecciona una carrera:</option>
-                            {% for carrera in carreras %}
-                            <option value="{{carrera[0]}}">{{carrera[1]}}</option>
-                            {% endfor %}
-                        </select>
-                        <div class="cuentarror" id="carreraerror"></div>
-                        <select id="PAIS" name="ciudadalu" class="select-ciudad" onblur="validalista(this.id)">
-                            <option value="" disabled selected>Selecciona una ciudad:</option>
-                            {% for ciudad in ciudades %}
-                            <option value="{{ciudad[0]}}">{{ciudad[1]}}</option>
-                            {% endfor %}
-                        </select>
-                        <div class="cuentarror" id="paiserror"></div>
-                    </div>
+
+                <div class="brand__footer">
+                    <span class="brand__dot"></span>
+                    <span>Universidades y estudiantes, en la misma red.</span>
                 </div>
             </div>
-            <input id="SITUACION" name="situacionalu" type="text" class="situacionalu" placeholder="Breve presentacion..."
-                            onblur="validateNom(this.id)">
-                <div class="cuentarror"></div>
-            <div class="CCmediano3">
-                <input type="submit" value="Crear cuenta">
-            </div>
-        </form>
-    </div>
-    <div id="myModal" class="modal"> <!-- para que aparesca el popup -->
-        <div class="modal-contentERROR">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 class="modalleter">ERROR</h2>
-            <div>
-                <h4 class="modalleter">Debes completar todos los campos de manera correcta.</h4>
+
+        </div>
+
+        <!-- Modal de error -->
+        <div id="myModal" class="modal">
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal()" aria-label="Cerrar">&times;</button> <!--para cerrar y el caracter de la cruz-->
+                <h2 class="modal__title">Faltan datos</h2>
+                <p class="modal__message">Debés completar todos los campos de manera correcta.</p>
             </div>
         </div>
-    </div>
-</body>
-
+    </body>
 </html>

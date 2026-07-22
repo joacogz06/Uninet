@@ -1,90 +1,115 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Uninet</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Editá el perfil de tu institución en Uninet." />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/editar_perfil2.css')}}">
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/editar_perfil2.js')}}"></script>
+    </head>
 
-<head>
-    <title>Uninet</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_prueba.css')}}"/>-->
-    <link rel="stylesheet" href="../static/style_prueba.css">
-    <script type="text/javascript" src="../static/Java_editar_perfil"></script>
-</head>
+    <body>
 
-<body>
-    <div class="main">
-        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-            <div class="caja_menubar">
-                <a href='/perfil2'>
-                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
-                </a><br>
-                <a href="/perfil2" class="menutexto">Perfil</a><br>
-                <a href="/"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos"
-                        alt="home"></a><br>
-                <a href="/" class="menutexto">Home</a><br>
-                <a href="/solicitud2"><img src="{{ url_for('static', filename='sendTransparente.png')}}"
-                        class="menufotos" alt="home"></a><br>
-                <a href="/solicitud2" class="menutexto">Solicitudes</a>
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar__close" onclick="toggleSidebar()" aria-label="Cerrar menú">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="sidebar__brand">Uninet</div>
+            <div class="sidebar__role">Cuenta de universidad</div>
+
+            <nav class="sidebar__nav">
+                <a href="/perfil2" class="navlink is-active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                    Perfil
+                </a>
+                <a href="/" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+                    Home
+                </a>
+                <a href="/solicitud2" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    Solicitudes
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                Universidades y estudiantes, en la misma red.
             </div>
-        </div>
-        <div class="contenedor">
-            <div class="margen {{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-                <div class="flecha" onclick="ApareceMenu()">
-                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home" onclick="ApareceMenu()"></a><br>
-                </div>
-            </div>
-            <div id="site_content2">
-                <h1>Este es tu perfil con tu informacion personal:</h1>
-                <div class="programa_res">
-                    <div class="perfil_inicial">
-                        <img src="{{ url_for('static', filename='perfilTransparente.png')}}" alt="perfil" class="perfil_img"><br>
-                        <a class="perfil_texto">Foto de Perfil</a>
-                    </div>
-                    <div class="per">
-                        <form action="/nuevo_perfil_uni" method="post" onsubmit="return totalperfilvalidadouni()">
-                            <div class="form-container">
-                                <div class="column">
-                                    <h3>Nombre de la Universidad: <input id="NOMBREUNI" type="text" value="{{session.get('nombre')}}" onblur="validateNom(this.id)" name="nombreuni"></h3>
-                                    <div class="error_perfil"></div>
-                                    <h3>Ubicacion:
-                                    <select name="ciudaduni" id="DIRECCIONUNI" class="ciudad_editar" onblur="validalista(this.id)">
-                                        {% for ciudad in ciudades %}
-                                        <option value="{{ciudad[0]}}">{{ciudad[1]}}</option>
-                                        {% endfor %}
-                                    </select></h3>
-                                    <div class="error_perfil"></div>
-                                </div>
-                                <div class="column">
-                                    <h3>Telefono de contacto: <input id="TELEFONO" name="telefonouni" type="text" value="{{session.get('telefono')}}" onblur="validatenum()"></h3>
-                                    <div class="error_perfil" id="teleerror"></div>
-                                    <h3>Correo electronico de contacto: <input name="mailuni" id="CORREO" type="text" value="{{session.get('email')}}" onblur="validateMail()"> </h3>
-                                    <div class="error_perfil" id="correoerror"></div>
-                                    <h3>Pagina web: <input id="PWEB" name="linkuni" type="text" value="{{session.get('link')}}" onblur="validateURL(this.id)"></h3>
-                                    <div class="error_perfil" id="pweberror"></div>
-                                </div>
-                            </div>
-                            <div class="boton">
-                                <a>
-                                    <input class="boton_perfil" type="submit" name="search_field" value="Guardar" />
-                                </a>
-                            </div>
-                        </form>
+        </aside>
+
+        <main class="main">
+            <div class="content">
+                <h1 class="topbar__title">Editar perfil</h1>
+                <p class="topbar__subtitle">Actualizá los datos de tu institución.</p>
+
+                <div class="profile-header">
+                    <div class="profile-avatar">{{ (session.get('nombre') or ' ')[:1] }}</div>
+                    <div>
+                        <h2 class="profile-name">{{session.get("nombre")}}</h2>
+                        <p class="profile-meta">Editando tu información</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div id="myModal" class="modal">
-        <div class="modal-contentERROR">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 class="modalleter">¡ERROR!</h2>
-            <div id="error-message-container">
-                <p id="error-message" class="modalleter">{{error}}</p>
-            </div>
-        </div>
-    </div>
-</body>
 
+                <form action="/nuevo_perfil_uni" method="post" id="form_editar_uni" novalidate>
+                    <div class="grid2">
+                        <div class="field field--full">
+                            <label for="NOMBREUNI">Nombre de la universidad</label>
+                            <input id="NOMBREUNI" name="nombreuni" type="text" value="{{session.get('nombre')}}">
+                        </div>
+
+                        <div class="field">
+                            <label for="DIRECCIONUNI">Ciudad</label>
+                            <select id="DIRECCIONUNI" name="ciudaduni">
+                                {% for ciudad in ciudades %}
+                                <option value="{{ciudad[0]}}" {{ 'selected' if ciudad[1] == session.get('ciudad') }}>{{ciudad[1]}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="TELEFONO">Teléfono de contacto</label>
+                            <input id="TELEFONO" name="telefonouni" type="text" value="{{session.get('telefono')}}">
+                        </div>
+
+                        <div class="field">
+                            <label for="CORREO">Correo de contacto</label>
+                            <input id="CORREO" name="mailuni" type="text" value="{{session.get('email')}}">
+                        </div>
+                        <div class="field">
+                            <label for="PWEB">Página web</label>
+                            <input id="PWEB" name="linkuni" type="text" value="{{session.get('link')}}">
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                            Guardar cambios
+                        </button>
+                        <a href="/perfil2" class="btn-ghost">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!-- Modal de error -->
+        <div id="myModal" class="modal">
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
+                <h2 class="modal__title">No pudimos guardar los cambios</h2>
+                <p class="modal__message" id="error-message">{{error}}</p>
+            </div>
+        </div>
+
+    </body>
 </html>

@@ -1,79 +1,114 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Uninet</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Tu perfil en Uninet." />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/perfil.css')}}">
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/perfil.js')}}"></script>
+    </head>
 
-<head>
-    <title>Uninet</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <link rel="stylesheet" type="text/css" href="../static/style_prueba.css" />
-    <script type="text/javascript" src="../static/Java01"></script>
-</head>
+    <body>
 
-<body>
-    <div class="main">
-        <div id="menubar" class="{{ 'fondo-universidad' if session.get('tipo') == 'universidad' else 'fondo-alumno' }}">
-            <div class="caja_menubar">
-                <a href='/perfilalu'>
-                    <img src="{{ url_for('static', filename='perfilTransparente.png')}}" class="menufotos" alt="home">
-                </a><br>
-                <a href="/perfilalu" class="menutexto">Perfil</a><br>
-                <a href="/homealu"><img src="{{ url_for('static', filename='homeTransparente.png')}}" class="menufotos" alt="home"></a><br>
-                <a href="/homealu" class="menutexto">Home</a><br>
-                <a href="/enviadas"><img src="../static/mailTransparente.png" class="menufotos" alt="home"></a><br>
-                <a href="/enviadas" class="menutexto">Enviadas</a><br>
-                <a href="/respuestasalu"><img src="../static/sendTransparente.png" class="menufotos" alt="home"></a><br>
-                <a href="/respuestasalu" class="menutexto">Respuestas</a>
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar__close" onclick="toggleSidebar()" aria-label="Cerrar menú">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="sidebar__brand">Uninet</div>
+            <div class="sidebar__role">Cuenta de estudiante</div>
+
+            <nav class="sidebar__nav">
+                <a href="/perfilalu" class="navlink is-active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                    Perfil
+                </a>
+                <a href="/homealu" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+                    Home
+                </a>
+                <a href="/enviadas" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    Enviadas
+                </a>
+                <a href="/respuestasalu" class="navlink">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    Respuestas
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                Universidades y estudiantes, en la misma red.
             </div>
-        </div>
-        <div class="contenedor">
-            <div class="margen">
-                <div class="flecha" onclick="ApareceMenu()">
-                    <a><img src="../static/flecha blanca.png" class="icono_flecha" alt="home"
-                            onclick="ApareceMenu()"></a><br>
-                </div>
-            </div>
-            <div id="site_content">
-                <div class="programa">
-                    <h1>Este es tu perfil con tu informacion personal:</h1>
-                    <div class="perfil_inicial">
-                        <img src="../static/perfilTransparente.png" alt="perfil" class="perfil_img"><br>
-                        <a class="perfil_texto">Foto de Perfil</a>
-                    </div>
-                    <div class="per">
-                        <div class="form-container">
-                            <div class="column">
-                                <h3>Nombre: {{session.get("nombre")}}</h3>
-                                <h3>Apellido: {{session.get("apellido")}}</h3>
-                                <h3>Carrera universitaria: {{session.get("id_carrera")}}</h3>
-                                <h3>Correo electronico: {{session.get("email")}}</h3>
-                            </div>
-                            <div class="column">
-                                <h3>Contrasena: {{session.get("password")}}</h3>
-                                <h3>Ciudad: {{session.get("id_ciudad")}}</h3>
-                                <h3>Telefono: {{session.get("telefono")}}</h3>
-                                <h3>DNI: {{session.get("dni")}}</h3>
-                                <h3>Promedio: {{session.get("promedio")}}</h3>
-                                <h3>Presentacion: {{session.get('situacion')}}</h3>
-                            </div>
-                        </div>
-                        <div class="boton">
-                            <a href="/perfileditaralu">
-                                <input class="boton_perfil" type="button" name="search_field" value="Editar" />
-                            </a>
-                        </div>
-                        <div class="boton">
-                            <a href="/cerrarSession">
-                                <input class="boton_perfil" type="button" name="search_field" value="Cerrar Sesion" />
-                            </a>
-                        </div>
+        </aside>
+
+        <main class="main">
+            <div class="content">
+                <h1 class="topbar__title">Tu perfil</h1>
+
+                <div class="profile-header">
+                    <div class="profile-avatar">{{ (session.get('nombre') or ' ')[:1] }}{{ (session.get('apellido') or ' ')[:1] }}</div>
+                    <div>
+                        <h2 class="profile-name">{{session.get("nombre")}} {{session.get("apellido")}}</h2>
+                        <p class="profile-meta">{{session.get("id_carrera")}} · {{session.get("id_ciudad")}}</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</body>
 
+                <div class="profile-body">
+                    <div class="detail">
+                        <span class="detail__label">Correo electrónico</span>
+                        <span class="detail__value">{{session.get("email")}}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="detail__label">Teléfono</span>
+                        <span class="detail__value">{{session.get("telefono")}}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="detail__label">DNI</span>
+                        <span class="detail__value">{{session.get("dni")}}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="detail__label">Promedio</span>
+                        <span class="detail__value">{{session.get("promedio")}}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="detail__label">Contraseña</span>
+                        <span class="detail__value detail__value--password">
+                            <span id="password-mask">••••••••</span>
+                            <span id="password-real" hidden>{{session.get("password")}}</span>
+                            <button type="button" class="password-toggle" onclick="togglePassword()" aria-label="Mostrar contraseña">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="detail detail--full">
+                        <span class="detail__label">Presentación</span>
+                        <span class="detail__value">{{session.get("situacion")}}</span>
+                    </div>
+                </div>
+
+                <div class="profile-footer">
+                    <a href="/perfileditaralu" class="btn-primary">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        Editar perfil
+                    </a>
+                    <a href="/cerrarSession" class="btn-ghost">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                        Cerrar sesión
+                    </a>
+                </div>
+            </div>
+        </main>
+
+    </body>
 </html>

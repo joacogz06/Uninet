@@ -1,57 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Uninet</title>
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="website description" />
-        <meta name="keywords" content="website keywords, website keywords" />
-        <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-        <script type="text/javascript" src="../static/Java01"></script>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_ini.css')}}"/> <!-- esto es jinja -->
-        <!-- <script type="text/javascript" src="../static/Java01"></script> -->
+        <meta name="description" content="Uninet conecta estudiantes con programas universitarios en todo el mundo." />
+        <meta name="keywords" content="universidad, programas, intercambio, estudiantes" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css')}}">
+        <script defer type="text/javascript" src="{{ url_for('static', filename='js/login.js')}}"></script>
     </head>
 
-    <body class="InicioSecion">
-        <div class="ICgrande">
-            <div class="ICchico1">
-                <div class="ICchico1-1">
-                    <h1 class="tituloIC">
-                        Uninet
-                    </h1>
+    <body>
+        <div class="portal">
+
+            <!-- Panel izquierdo: identidad -->
+            <div class="portal__brand">
+                <div class="brand__grid" aria-hidden="true"></div>
+                <div class="brand__content">
+                    <span class="brand__eyebrow">Plataforma de admisiones</span>
+                    <h1 class="brand__title">Uninet</h1>
+                    <p class="brand__tagline">Conectamos estudiantes con programas universitarios en todo el mundo.</p>
                 </div>
-                <form id="form_inicio" class="formIC" method="post" action="/signin">
-                    <div class="ICchico1-2">
-                        <p class="subtituloIC">Login</p>
-                        <select name="alu/uni" id="alu_uni">
-                            <option>Alumno</option>
-                            <option>Universidad</option>
-                        </select>
-                        <input id="ICusername" type="text" name="user_mail" placeholder="Enter your email..." onblur="validateNombre(id)">
-                        <input id="ICpassword" type="password" name="password" placeholder="Enter your password..." onblur="validateNombre(id)">
-                    </div>
-                    <div class="ICchico1-3">
-                        <input type="submit" value="enviar">
-                    </div>
-                </form>
+                <div class="brand__footer">
+                    <span class="brand__dot" aria-hidden="true"></span>
+                    <span>Universidades y estudiantes, en la misma red.</span>
+                </div>
             </div>
-            <div class="ICchico2">
-                <h4 class="h4dIC">
-                    No tienes una cuenta?
-                </h4>
-                <h4 class="h4dIC1">Si eres estudiante registrate <a href="/paginacrearcuentaalumno">AQUI</a></h4>
-                <h4 class="h4dIC1">Si eres un perfil universitario registrate <a href="/paginacrearuniversidad">AQUI</a></h4>
+
+            <!-- Panel derecho: acceso -->
+            <div class="portal__access">
+                <div class="access__card">
+
+                    <div class="ticket">
+                        <span class="ticket__label">Ingresar como</span>
+                        <div class="ticket__select-wrap">
+                            <select name="alu/uni" id="alu_uni" form="form_inicio" class="ticket__select">
+                                <option>Alumno</option>
+                                <option>Universidad</option>
+                            </select>
+                            <svg class="ticket__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h2 class="access__title">Iniciar sesión</h2>
+
+                    <form id="form_inicio" class="access__form" method="post" action="/signin" novalidate>
+                        <div class="field">
+                            <label class="field__label" for="ICusername">Correo electrónico</label>
+                            <input class="field__input" id="ICusername" type="text" name="user_mail" placeholder="tu@correo.com" autocomplete="username">
+                            <span class="field__error" data-error-for="ICusername"></span>
+                        </div>
+
+                        <div class="field">
+                            <label class="field__label" for="ICpassword">Contraseña</label>
+                            <input class="field__input" id="ICpassword" type="password" name="password" placeholder="••••••••" autocomplete="current-password">
+                            <span class="field__error" data-error-for="ICpassword"></span>
+                        </div>
+
+                        <button type="submit" class="access__submit">
+                            <span>Ingresar</span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div class="access__divider"><span>¿Primera vez acá?</span></div>
+
+                    <div class="access__links">
+                        <a href="/paginacrearcuentaalumno" class="access__link">
+                            <span class="access__link-tag">Alumno</span>
+                            Crear cuenta de estudiante
+                        </a>
+                        <a href="/paginacrearuniversidad" class="access__link">
+                            <span class="access__link-tag">Universidad</span>
+                            Registrar mi institución
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
+
+        <!-- Modal de error -->
         <div id="myModal" class="modal">
-            <div class="modal-contentERROR">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2 class="modalleter">¡ERROR!</h2>
-                <div id="error-message-container">
-                    <p id="error-message">{{error}}</p>
-                </div>
+            <div class="modal__content">
+                <button type="button" class="modal__close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
+                <h2 class="modal__title">No pudimos iniciar tu sesión</h2>
+                <p class="modal__message" id="error-message">{{error}}</p>
             </div>
         </div>
     </body>
-
 </html>

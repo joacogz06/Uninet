@@ -1,0 +1,383 @@
+/* ============================================
+   Uninet — Crear cuenta alumno (crearcuenta.html)
+   Mismo sistema visual que el login, panel invertido
+   ============================================ */
+
+:root {
+  --navy: #101c34;
+  --navy-2: #1b2c4f;
+  --paper: #ece8dd;
+  --gold: #b08d4f;
+  --gold-dim: #8f7139;
+  --ink: #1b1b1b;
+  --mist: #8c96ac;
+  --error: #a23e2d;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  min-height: 100vh;
+}
+
+.frame {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+/* ===== panel izquierdo: formulario ===== */
+
+.access {
+  padding: 3.5rem 4.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.access__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  border: 1px solid rgba(176, 141, 79, 0.4);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+}
+
+.access__title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin: 0 0 0.4rem;
+  color: var(--navy);
+}
+
+.access__subtitle {
+  font-size: 0.92rem;
+  color: var(--mist);
+  margin: 0 0 2rem;
+  max-width: 46ch;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--navy-2);
+}
+
+.field input,
+.field select {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(27, 27, 27, 0.16);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%238C96AC' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+.field input::placeholder {
+  color: rgba(27, 27, 27, 0.32);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(176, 141, 79, 0.18);
+}
+
+.field input.is-invalid,
+.field select.is-invalid {
+  border-color: var(--error);
+}
+
+.submit {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.submit:hover {
+  background: var(--navy-2);
+}
+
+.submit:active {
+  transform: translateY(1px);
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.4rem;
+  font-size: 0.85rem;
+  color: var(--mist);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--navy);
+}
+
+/* ===== panel derecho: marca ===== */
+
+.brand {
+  position: relative;
+  background: var(--navy);
+  color: #fff;
+  padding: 4rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.brand__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(176, 141, 79, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 141, 79, 0.14) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 70% 30%, black 40%, transparent 85%);
+}
+
+.brand__content {
+  position: relative;
+  z-index: 1;
+}
+
+.brand__eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.brand__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.4rem;
+  line-height: 1;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.brand__tagline {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--mist);
+  max-width: 24ch;
+  margin: 0;
+}
+
+.brand__tagline em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: #fff;
+}
+
+.brand__steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 2.5rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--mist);
+}
+
+.step__mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(176, 141, 79, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.step.is-active {
+  color: #fff;
+}
+
+.step.is-active .step__mark {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.brand__footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--mist);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.4rem;
+}
+
+.brand__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ===== Modal de error ===== */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 28, 52, 0.55);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal__content {
+  position: relative;
+  background: #fff;
+  border-top: 4px solid var(--error);
+  border-radius: 10px;
+  padding: 2rem 2.25rem;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(16, 28, 52, 0.3);
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--mist);
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  color: var(--ink);
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin: 0 0 0.6rem;
+  color: var(--navy);
+}
+
+.modal__message {
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 900px) {
+  .frame {
+    grid-template-columns: 1fr;
+  }
+
+  .access,
+  .brand {
+    padding: 2.5rem;
+  }
+
+  .brand__title {
+    font-size: 2.5rem;
+  }
+
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}

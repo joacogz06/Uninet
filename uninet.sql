@@ -1,12 +1,11 @@
-
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2024 a las 14:38:53
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Host: 127.0.0.1
+-- Generation Time: Jul 21, 2026 at 02:51 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `uninet`
+-- Database: `uninet`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumno`
+-- Table structure for table `alumno`
 --
 
 CREATE TABLE `alumno` (
@@ -42,10 +41,17 @@ CREATE TABLE `alumno` (
   `situacion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `alumno`
+--
+
+INSERT INTO `alumno` (`id`, `nombre`, `apellido`, `email`, `pass`, `dni`, `telefono`, `promedio`, `id_ciudad`, `id_carrera`, `situacion`) VALUES
+(1, 'joaquin', 'gonzalez', 'joaquingonzalez1@uca.edu.ar', '123joaquin', 545544545, '3242433553', 9.8, 1, 4, 'tipazo y fachero');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `carrera`
+-- Table structure for table `carrera`
 --
 
 CREATE TABLE `carrera` (
@@ -53,10 +59,27 @@ CREATE TABLE `carrera` (
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `carrera`
+--
+
+INSERT INTO `carrera` (`id`, `nombre`) VALUES
+(1, 'Ing. en Informatica'),
+(2, 'Ingeniería en Sistemas'),
+(3, 'Medicina'),
+(4, 'Derecho'),
+(5, 'Administración de Empresas'),
+(6, 'Arquitectura'),
+(7, 'Psicología'),
+(8, 'Ingeniería Civil'),
+(9, 'Contador Público'),
+(10, 'Marketing'),
+(11, 'Diseño Gráfico');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ciudad`
+-- Table structure for table `ciudad`
 --
 
 CREATE TABLE `ciudad` (
@@ -64,10 +87,26 @@ CREATE TABLE `ciudad` (
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ciudad`
+--
+
+INSERT INTO `ciudad` (`id`, `nombre`) VALUES
+(1, 'Buenos Aires'),
+(2, 'Córdoba'),
+(3, 'Rosario'),
+(4, 'Madrid'),
+(5, 'Barcelona'),
+(6, 'Ciudad de México'),
+(7, 'Bogotá'),
+(8, 'Santiago de Chile'),
+(9, 'Lima'),
+(10, 'Montevideo');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `like`
+-- Table structure for table `like`
 --
 
 CREATE TABLE `like` (
@@ -79,7 +118,7 @@ CREATE TABLE `like` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `programa`
+-- Table structure for table `programa`
 --
 
 CREATE TABLE `programa` (
@@ -87,16 +126,28 @@ CREATE TABLE `programa` (
   `nombre` varchar(50) NOT NULL,
   `id_universidad` int(11) NOT NULL,
   `precio` double NOT NULL,
+  `requisitos` text NOT NULL,
   `documento` varchar(100) NOT NULL,
   `modalidad` enum('hibrida','presencial','virtual') NOT NULL,
   `estado` enum('disponible','no disponible') NOT NULL,
   `descripcion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `programa`
+--
+
+INSERT INTO `programa` (`id`, `nombre`, `id_universidad`, `precio`, `requisitos`, `documento`, `modalidad`, `estado`, `descripcion`) VALUES
+(1, 'intercambio de redes', 1, 3456, 'promedio 8', '', 'virtual', 'disponible', 'aprender sobre redes de comunicacion'),
+(2, 'curso de programacion poo', 1, 3454, '6.8 ingles fluido', '', 'presencial', 'disponible', 'aprendes sobre clases uml y java'),
+(3, 'medicina aplicada', 1, 520, 'ingles avanzado, promedio 7.00', '', 'presencial', 'disponible', 'Formamos médicos con excelencia académica, sólida base científica y compromiso ético, preparados para diagnosticar, tratar y prevenir enfermedades con calidad humana y profesional.'),
+(4, 'programacion web', 1, 0, '3er año de ing. informatica completado, conocimientos sobre js, html, css y python', '', 'virtual', 'disponible', 'Formamos desarrolladores capaces de diseñar, construir y mantener aplicaciones web modernas, combinando bases sólidas de programación con las últimas tecnologías del mercado.'),
+(6, 'Italiano basico', 1, 0, '1er año completado en cualquier carrera', '', 'virtual', 'disponible', 'Aprendé los fundamentos del idioma italiano —gramática, vocabulario y pronunciación— para comunicarte con confianza en situaciones cotidianas.');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `solicitud`
+-- Table structure for table `solicitud`
 --
 
 CREATE TABLE `solicitud` (
@@ -107,10 +158,19 @@ CREATE TABLE `solicitud` (
   `estado` enum('solicitado','aceptado','rechazado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `solicitud`
+--
+
+INSERT INTO `solicitud` (`id`, `id_alumno`, `id_programa`, `fechahora`, `estado`) VALUES
+(1, 1, 1, '2026-05-08 19:41:33', 'aceptado'),
+(2, 1, 2, '2026-05-08 20:26:24', 'aceptado'),
+(3, 1, 4, '2026-07-18 11:56:00', 'aceptado');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `universidad`
+-- Table structure for table `universidad`
 --
 
 CREATE TABLE `universidad` (
@@ -124,11 +184,18 @@ CREATE TABLE `universidad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `universidad`
+--
+
+INSERT INTO `universidad` (`id`, `nombre`, `id_ciudad`, `email`, `pass`, `telefono`, `link`) VALUES
+(1, 'Universidad Catolica Argentina', 3, 'correouca@uca.edu.ar', 'cuentauca123', '11456798765', 'https://autogestion.uca.edu.ar/acceso');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `alumno`
+-- Indexes for table `alumno`
 --
 ALTER TABLE `alumno`
   ADD PRIMARY KEY (`id`),
@@ -137,19 +204,19 @@ ALTER TABLE `alumno`
   ADD KEY `FK_id_ciudad` (`id_ciudad`);
 
 --
--- Indices de la tabla `carrera`
+-- Indexes for table `carrera`
 --
 ALTER TABLE `carrera`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `ciudad`
+-- Indexes for table `ciudad`
 --
 ALTER TABLE `ciudad`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `like`
+-- Indexes for table `like`
 --
 ALTER TABLE `like`
   ADD PRIMARY KEY (`id`),
@@ -157,14 +224,14 @@ ALTER TABLE `like`
   ADD KEY `FK_L_id_programa` (`id_programa`);
 
 --
--- Indices de la tabla `programa`
+-- Indexes for table `programa`
 --
 ALTER TABLE `programa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_P_id_universidad` (`id_universidad`);
 
 --
--- Indices de la tabla `solicitud`
+-- Indexes for table `solicitud`
 --
 ALTER TABLE `solicitud`
   ADD PRIMARY KEY (`id`),
@@ -172,7 +239,7 @@ ALTER TABLE `solicitud`
   ADD KEY `FK_S_id_programa` (`id_programa`);
 
 --
--- Indices de la tabla `universidad`
+-- Indexes for table `universidad`
 --
 ALTER TABLE `universidad`
   ADD PRIMARY KEY (`id`),
@@ -180,84 +247,84 @@ ALTER TABLE `universidad`
   ADD KEY `FK_U_id_ciudad` (`id_ciudad`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `alumno`
+-- AUTO_INCREMENT for table `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `carrera`
+-- AUTO_INCREMENT for table `carrera`
 --
 ALTER TABLE `carrera`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT de la tabla `ciudad`
+-- AUTO_INCREMENT for table `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `like`
+-- AUTO_INCREMENT for table `like`
 --
 ALTER TABLE `like`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `programa`
+-- AUTO_INCREMENT for table `programa`
 --
 ALTER TABLE `programa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `solicitud`
+-- AUTO_INCREMENT for table `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `universidad`
+-- AUTO_INCREMENT for table `universidad`
 --
 ALTER TABLE `universidad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `alumno`
+-- Constraints for table `alumno`
 --
 ALTER TABLE `alumno`
   ADD CONSTRAINT `FK_id_carrera` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id`),
   ADD CONSTRAINT `FK_id_ciudad` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudad` (`id`);
 
 --
--- Filtros para la tabla `like`
+-- Constraints for table `like`
 --
 ALTER TABLE `like`
   ADD CONSTRAINT `FK_L_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`),
   ADD CONSTRAINT `FK_L_id_programa` FOREIGN KEY (`id_programa`) REFERENCES `programa` (`id`);
 
 --
--- Filtros para la tabla `programa`
+-- Constraints for table `programa`
 --
 ALTER TABLE `programa`
   ADD CONSTRAINT `FK_P_id_universidad` FOREIGN KEY (`id_universidad`) REFERENCES `universidad` (`id`);
 
 --
--- Filtros para la tabla `solicitud`
+-- Constraints for table `solicitud`
 --
 ALTER TABLE `solicitud`
   ADD CONSTRAINT `FK_S_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`),
   ADD CONSTRAINT `FK_S_id_programa` FOREIGN KEY (`id_programa`) REFERENCES `programa` (`id`);
 
 --
--- Filtros para la tabla `universidad`
+-- Constraints for table `universidad`
 --
 ALTER TABLE `universidad`
   ADD CONSTRAINT `FK_U_id_ciudad` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudad` (`id`);
@@ -266,4 +333,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-use uninet;
